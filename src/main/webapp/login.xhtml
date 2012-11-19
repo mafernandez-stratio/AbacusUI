@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"                 
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"> 
+    <h:head>
+        <title>Abacus</title>
+    </h:head>
+    <h:body>
+        <rich:panel style="width:400px">
+            <f:facet name="header">
+                <h:outputText value="Login" />
+            </f:facet>
+            <h:form>
+                <rich:messages ajaxRendered="true" />
+                <h:panelGrid columns="2">
+                    <h:outputText value="Username:" />
+                    <h:inputText id="username" required="true" value="#{userBean.username}" />
+                    <h:outputText value="Password:" />
+                    <h:inputSecret id="password" required="true" value="#{userBean.password}" />
+                    <f:facet name="footer">
+                        <a4j:commandButton value="Login" action="#{userBean.login()}" />
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </rich:panel>
+    </h:body>
+</html>
+    

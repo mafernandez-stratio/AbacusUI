@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title> Abacus </title>
+            </f:facet>
+            <link href="url('./resources/images/abacusIcon.ico')" rel="shortcut icon" type="image/x-icon"/>
+        </h:head>
+        <h:body>   
+            <h:outputStylesheet library="css" name="style.css"  />
+            <p:layout fullPage="true">                
+                <p:layoutUnit id="northernLayout" position="north" size="100" gutter="0" collapsible="true"
+                              style="background-image: url('resources/images/abacus.png'); background-repeat: no-repeat; background-size: 100% 100%;">                    
+                    <div align="right">
+                        <h:panelGrid columns="2" id="userPanel">
+                            <h:graphicImage library="images" name="#{userBean.pic}" height="60px;" />                            
+                            <h:panelGrid id="LeftPanelLogin" >
+                                <c:choose>
+                                    <c:when test="#{userBean.loggedin}">
+                                        <h:outputText value="Logged in as:" style="color: lightgray" />
+                                        <h:panelGrid columns="3">
+                                            <h:outputText value="user" style="color: white; white-space: nowrap;" />
+                                            <h:outputText value="|" style="color: lightgray; white-space: nowrap;" />
+                                            <p:commandLink id="LogoutLink" update="userPanel" actionListener="#{userBean.logout}"
+                                                           style="color: lightblue;">                                            
+                                                <h:outputText value="Logout" />
+                                            </p:commandLink>    
+                                        </h:panelGrid>
+                                    </c:when>
+                                    <c:otherwise>    
+                                        <p:commandLink id="cLink" value="Login" style="color: lightblue; text-decoration: none;" />                                            
+                                        <p:overlayPanel id="linkPanel" for="cLink" hideEffect="fade" appendToBody="true">
+                                            <h:form id="LoginForm">
+                                                <h:panelGrid columns="2" style=" font-size: 11px;">         
+                                                        <h:outputLabel for="username" value="Username:" style="font-weight: bold" /> 
+                                                        <p:inputText value="#{userBean.username}" id="username" required="true" 
+                                                                     label="username" styleClass="usernameInput" />  
+                                                        <h:outputLabel for="password" value="Password:" style="font-weight: bold" />  
+                                                        <h:inputSecret value="#{userBean.password}"   
+                                                                       id="password" required="true" label="password" />
+                                                        <h:outputText value=""/>
+                                                        <p:commandButton id="loginButton" value="Login" update=":userPanel"  
+                                                                         actionListener="#{userBean.login}" oncomplete=":LoginForm.hide()" />   
+                                                </h:panelGrid>
+                                            </h:form>    
+                                        </p:overlayPanel>   
+                                    </c:otherwise>
+                                </c:choose>
+                            </h:panelGrid>                            
+                        </h:panelGrid>
+                    </div>                    
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="100" collapsible="true"
+                              id="southernLayout" styleClass="footerLayout" gutter="0">
+                    <p:panelGrid id="footerPanel" columns="2" columnClasses="imagesFooter rightAlign, imagesFooter leftAlign">
+                        <p:graphicImage library="images" name="cediant.png" styleClass="anagrams" />
+                        <p:graphicImage library="images" name="uax.gif" styleClass="anagrams" />                          
+                    </p:panelGrid>
+                </p:layoutUnit>                
+                <p:layoutUnit position="center" id="centerLayout">                    
+                    <h:form id="tabForm">                                                                         
+                        <p:tabView id="tabView" dynamic="true" effect="#{tabBean.effect}" effectDuration="normal">  
+                            <p:ajax event="tabChange" listener="#{tabBean.onTabChange}"/>  
+                            <p:tab title="HOME" id="Home" disabled="false" titleStyleClass="tabsTitle">    
+                                <h:outputText value="Abacus Grid Manager &nbsp;" style="font-weight: bold"/>
+                                <h:outputText value="User Portal" style="font-style: italic" />
+                                <br />
+                                <h:outputText value="&nbsp;" style="font-size: 6px" /> 
+                                <h:panelGrid id="gridSections" columns="3" styleClass="gridSection">
+                                    <p:panel styleClass="sections">
+                                        <h:outputText value="SECTION 1" />                                        
+                                    </p:panel>    
+                                    <p:panel styleClass="sections">
+                                        <h:outputText value="SECTION 2" />                                        
+                                    </p:panel>
+                                    <p:panel styleClass="sections">
+                                        <h:outputText value="SECTION 3" />                                        
+                                    </p:panel>
+                                </h:panelGrid>
+                            </p:tab>  
+                            <p:tab title="WORKLOAD" id="Workload" disabled="false" titleStyleClass="tabsTitle">  
+                                <h:panelGrid cellpadding="10">    
+                                    <h:outputText value="WORKLOAD"/>  
+                                </h:panelGrid>  
+                            </p:tab>  
+                            <p:tab title="NODES" id="Nodes" disabled="false" titleStyleClass="tabsTitle">  
+                                <h:panelGrid cellpadding="10">  
+                                    <h:outputText value="Nodes"/>  
+                                </h:panelGrid>  
+                            </p:tab>  
+                            <p:tab title="GRAPHS" id="Graphs" disabled="false" titleStyleClass="tabsTitle">  
+                                <h:panelGrid cellpadding="10">  
+                                    <h:outputText value="Graphs"/>  
+                                </h:panelGrid>  
+                            </p:tab>
+                        </p:tabView>  
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
+

@@ -1,0 +1,144 @@
+/* 
+    Document   : style
+    Created on : Nov 14, 2012, 9:59:20 AM
+    Author     : miguel
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#northernLayout .ui-widget-content {
+    background: transparent;
+}
+
+#LoginLink, #LogoutLink {
+    text-decoration: none !important;
+}
+
+#userPanel {
+    padding-top: 10px; 
+    padding-right: 10px;
+}
+
+.tabsTitle {
+    font-size: 70% !important;
+}
+
+#southernLayout .ui-widget-content, .footerLayout {
+    background-color: rgb(210, 210, 210)
+}
+
+body {
+    background: beige;
+}
+
+#centerLayout.ui-widget-content {
+    padding: 0em 0em !important;
+}
+
+#centerLayout .ui-layout-unit-content {
+    padding: 0em 0em !important;
+}
+
+#tabForm .ui-widget-content {
+    border: 0px !important;
+}
+
+#tabForm .ui-tabs {
+    padding: 0px !important; border: none !important;
+}
+
+#tabForm .ui-tabs-nav {
+    background: rgb(210, 210, 210); border: none !important;
+}
+
+#tabForm .ui-state-default {
+    border: none !important; 
+    background: rgb(210, 210, 210); 
+    box-shadow: none !important;
+}
+
+#tabForm .ui-state-focus, #tabForm .ui-state-selected, #tabForm .ui-state-active {
+    background: white !important;
+}
+        
+#tabForm .ui-corner-top {
+    border-top-left-radius: 0px !important; 
+    border-top-right-radius: 0px !important;
+}
+
+.ui-corner-all {
+    border-radius: 0px !important;
+}
+
+.leftAlign {
+    text-align: left !important;
+}
+
+.rightAlign {
+    text-align: right !important;
+}
+
+#footerPanel .ui-widget-content {
+    border: none;
+}
+
+#footerPanel .ui-panelgrid td {
+    border: none;
+}
+
+.imagesFooter {
+    border: 0px !important;
+}
+
+#footerPanel {
+    margin-left: 35% !important;
+}   
+
+.ui-widget-content {
+    border: 0px solid rgb(210, 210, 210);
+}
+
+.anagrams {
+    height: 70px;
+}
+
+#LoginForm input {
+    box-shadow: none !important; 
+    margin: auto !important;
+}
+
+#LoginForm input[type="password"] {
+    font-size: 1.2em !important; 
+    width: 130px !important;
+}
+
+.sections {
+    background: rgb(210, 210, 210);
+}
+
+.gridSection {
+    border: 2px solid rgb(66, 123, 189); 
+    border-spacing: 0px !important;
+    margin: 0 !important;
+    padding: 0px !important;
+}
+
+.gridSection tbody {
+    border: 2px solid rgb(166, 34, 109) !important;    
+}
+
+.gridSection table {
+    border: 2px solid rgb(200, 150, 200) !important;  
+}
+
+.tabs {
+    border: 2px solid brown !important;
+}
+
+#gridSections table {
+    border-spacing: 0px !important;
+}

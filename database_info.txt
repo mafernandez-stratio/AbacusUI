@@ -1,0 +1,7 @@
+MySQL
+
+password: admin
+database: webdb
+user: webdb_user
+password: admin
+IP: 127.0.0.1
