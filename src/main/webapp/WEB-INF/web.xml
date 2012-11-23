@@ -51,7 +51,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.jsp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
