@@ -4,9 +4,12 @@
  */
 package es.cediant.abacus;
 
+import es.cediant.database.User;
 import es.cediant.database.UserHelper;
-import es.cediant.database.Users;
+import es.cediant.service.IUserService;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -18,19 +21,36 @@ import org.slf4j.LoggerFactory;
  *
  * @author mafernandez
  */
-@ManagedBean
+@ManagedBean(name="userBean")
 @SessionScoped
-public final class UserBean {
+public final class UserBean implements Serializable {
+    private static final long serialVersionUID = 8029419092316726679L;
+    private static final String SUCCESS = "success";
+    private static final String ERROR   = "error";
+
     private boolean loggedin;
     private String username;
     private String password;
     private String pic;
     private final Logger logger;
     
+    //Spring User Service is injected...
+    @ManagedProperty(value="#{UserService}")
+    IUserService userService;
+    
     public UserBean() {      
         this.logger = LoggerFactory.getLogger(LoginBean.class);
         this.setPic("defaultPic.png");
         this.setLoggedin(false);
+    }
+    
+    /**
+     * Get User Service
+     *
+     * @return IUserService - User Service
+     */
+    public IUserService getUserService() {
+        return userService;
     }
     
     public boolean isLoggedin() {
@@ -67,13 +87,13 @@ public final class UserBean {
     public void setPic(String pic) {
         System.out.println("New Pic");   
         this.pic = pic;
-    }
+    }        
     
     public void login(ActionEvent actionEvent){
         RequestContext context = RequestContext.getCurrentInstance();  
         if(username != null && password != null) {  
             UserHelper userQueries = new UserHelper();
-            Users user = userQueries.getUserByUsername(username);
+            User user = userQueries.getUserByUsername(username);
             if(user != null && user.getPassword().equals(password)){
                 this.setLoggedin(true);  
                 logger.info("Loggedin");

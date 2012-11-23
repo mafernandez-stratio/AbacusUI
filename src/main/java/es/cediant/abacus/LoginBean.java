@@ -4,8 +4,8 @@
  */
 package es.cediant.abacus;
 
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.core.util.StatusPrinter;
+//import ch.qos.logback.classic.LoggerContext;
+//import ch.qos.logback.core.util.StatusPrinter;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.slf4j.Logger;
@@ -30,9 +30,9 @@ public class LoginBean {
         logger = LoggerFactory.getLogger(LoginBean.class);
         logger.info("UserBean created");
         // assume SLF4J is bound to logback in the current environment
-        LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+        // LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
         // print logback's internal status
-        StatusPrinter.print(lc);
+        // StatusPrinter.print(lc);
     }
     
     public String getUsername() {

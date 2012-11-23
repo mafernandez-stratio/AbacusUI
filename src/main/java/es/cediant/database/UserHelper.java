@@ -23,13 +23,13 @@ public class UserHelper {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
     
-    public Users getUserByUsername (String username){
-        Users user = new Users();
+    public User getUserByUsername (String username){
+        User user = new User();
         try {
             Transaction tx = session.beginTransaction();
             Query q = session.createQuery("from Users as users where users.id.username LIKE '"+username+"'");
-            user = (Users) q.list().get(0);
-            logger.info("User '"+user.getId().getUsername()+"' recovered");
+            user = (User) q.list().get(0);
+            logger.info("User '"+user.getUsername()+"' recovered");
         } catch (Exception e){
             logger.error("Database error");
             logger.error(e.getMessage());
@@ -37,13 +37,13 @@ public class UserHelper {
         return user;        
     }
     
-    public Users getUserById (int id){
-        Users user = new Users();
+    public User getUserById (int id){
+        User user = new User();
         try {
             Transaction tx = session.beginTransaction();
             Query q = session.createQuery("from Users as users where users.id.username LIKE "+id);
-            user = (Users) q.list().get(0);
-            logger.info("User '"+user.getId().getIdusers()+"' recovered");
+            user = (User) q.list().get(0);
+            logger.info("User '"+user.getId()+"' recovered");
         } catch (Exception e){
             logger.error("Database error");
             logger.error(e.getMessage());
