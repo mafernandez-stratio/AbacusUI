@@ -17,15 +17,14 @@
         </h:head>
         <h:body>   
             <h:outputStylesheet library="css" name="style.css"  />
-            <p:layout fullPage="true">                
-                <p:layoutUnit id="northernLayout" position="north" size="100" gutter="0" collapsible="true"
-                              style="background-image: url('resources/images/abacus.png'); background-repeat: no-repeat; background-size: 100% 100%;">                    
+            <p:layout fullPage="true">
+                <p:layoutUnit id="northernLayout" position="north" size="100" gutter="0" collapsible="true">
                     <div align="right">
                         <h:panelGrid columns="2" id="userPanel">
-                            <h:graphicImage library="images" name="#{userBean.pic}" height="60px;" />                            
+                            <h:graphicImage library="images" name="#{userBean.pic}" height="60px;" />
                             <h:panelGrid id="LeftPanelLogin" >
                                 <c:choose>
-                                    <c:when test="${userBean.loggedin}">
+                                    <c:when test="#{userBean.loggedin}">
                                         <h:outputText value="Logged in as:" style="color: lightgray" />
                                         <h:panelGrid columns="3">
                                             <h:outputText value="user" style="color: white; white-space: nowrap;" />
@@ -37,14 +36,14 @@
                                         </h:panelGrid>
                                     </c:when>
                                     <c:otherwise>    
-                                        <a4j:commandLink id="cLink" value="Login" style="color: lightblue; text-decoration: none;" />                                            
+                                        <p:commandLink id="cLink" value="Login" />                                            
                                         <p:overlayPanel id="linkPanel" for="cLink" hideEffect="fade" appendToBody="true">
                                             <h:form id="LoginForm">
-                                                <h:panelGrid columns="2" style=" font-size: 11px;">         
-                                                        <h:outputLabel for="username" value="Username:" style="font-weight: bold" /> 
+                                                <h:panelGrid columns="2" styleClass="regularText">         
+                                                        <h:outputLabel for="username" value="Username:" styleClass="bold" /> 
                                                         <h:inputText value="#{userBean.username}" id="username" required="true" 
                                                                      label="username" styleClass="usernameInput" />  
-                                                        <h:outputLabel for="password" value="Password:" style="font-weight: bold" />  
+                                                        <h:outputLabel for="password" value="Password:" styleClass="bold" />  
                                                         <h:inputSecret value="#{userBean.password}"   
                                                                        id="password" required="true" label="password" />
                                                         <h:outputText value=""/>
@@ -54,48 +53,41 @@
                                             </h:form>    
                                         </p:overlayPanel>   
                                     </c:otherwise>
-                                </c:choose>
+                                </c:choose>                                                                         
                             </h:panelGrid>                            
-                        </h:panelGrid>
-                    </div>                    
+                        </h:panelGrid>                       
+                    </div>
                 </p:layoutUnit>
-                <p:layoutUnit position="south" size="100" collapsible="true"
-                              id="southernLayout" styleClass="footerLayout" gutter="0">
-                    <p:panelGrid id="footerPanel" columns="2" columnClasses="imagesFooter rightAlign, imagesFooter leftAlign">
-                        <h:graphicImage library="images" name="cediant.png" styleClass="anagrams" />
-                        <h:graphicImage library="images" name="uax.gif" styleClass="anagrams" />                          
-                    </p:panelGrid>
-                </p:layoutUnit>              
-                <p:layoutUnit position="center" id="centerLayout">                    
-                    <h:form id="tabForm">                                                                         
-                        <p:tabView id="tabView" dynamic="true" effect="#{tabBean.effect}" effectDuration="normal">  
-                            <a4j:ajax event="tabChange" listener="#{tabBean.onTabChange}"/>  
-                            <p:tab title="HOME" id="Home" disabled="false" titleStyleClass="tabsTitle">    
-                                <h:outputText value="Abacus Grid Manager &nbsp;" style="font-weight: bold"/>
-                                <h:outputText value="User Portal" style="font-style: italic" />
+                <p:layoutUnit position="center" id="centerLayout">
+                    <h:form id="tabForm"> 
+                        <p:tabView id="tabView" dynamic="true" effect="#{tabBean.effect}" effectDuration="normal">
+                            <p:ajax event="tabChange" listener="#{tabBean.onTabChange}" />  
+                            <p:tab title="HOME" id="Home" disabled="false" titleStyleClass="tabsTitle">  
+                                <h:outputText value="Abacus Grid Manager &nbsp;" styleClass="bold"/>
+                                <h:outputText value="User Portal" styleClass="italic" />
                                 <br />
-                                <h:outputText value="&nbsp;" style="font-size: 6px" /> 
+                                <h:outputText value="&nbsp;" styleClass="smallText" /> 
                                 <h:panelGrid columns="3" styleClass="gridSection">
-                                    <rich:panel styleClass="sections">
+                                    <p:panel styleClass="sections">
                                         <h:outputText value="SECTION 1" />                                        
-                                    </rich:panel>    
-                                    <rich:panel styleClass="sections">
+                                    </p:panel>    
+                                    <p:panel styleClass="sections">
                                         <h:outputText value="SECTION 2" />                                        
-                                    </rich:panel>
-                                    <rich:panel styleClass="sections">
+                                    </p:panel>
+                                    <p:panel styleClass="sections">
                                         <h:outputText value="SECTION 3" />                                        
-                                    </rich:panel>
+                                    </p:panel>
                                 </h:panelGrid>
                                 <br />
                                 <h:panelGrid columns="2" styleClass="gridSection">
-                                    <rich:panel styleClass="sections">
+                                    <p:panel styleClass="sections">
                                         <h:outputText value="SECTION 1" />                                        
-                                    </rich:panel>    
-                                    <rich:panel styleClass="sections">
+                                    </p:panel>    
+                                    <p:panel styleClass="sections">
                                         <h:outputText value="SECTION 2" />                                        
-                                    </rich:panel>
-                                </h:panelGrid>
-                            </p:tab>  
+                                    </p:panel>
+                                </h:panelGrid> 
+                            </p:tab>
                             <p:tab title="WORKLOAD" id="Workload" disabled="false" titleStyleClass="tabsTitle">  
                                 <h:panelGrid cellpadding="10">    
                                     <h:outputText value="WORKLOAD"/>  
@@ -111,10 +103,17 @@
                                     <h:outputText value="Graphs"/>  
                                 </h:panelGrid>  
                             </p:tab>
-                        </p:tabView>  
+                        </p:tabView>                          
                     </h:form>
                 </p:layoutUnit>
-            </p:layout>
+                <p:layoutUnit position="south" size="100" collapsible="true"
+                              id="southernLayout" styleClass="footerLayout" gutter="0">
+                    <p:panelGrid id="footerPanel" columns="2" columnClasses="imagesFooter rightAlign, imagesFooter leftAlign">
+                        <h:graphicImage library="images" name="cediant.png" styleClass="anagrams" />
+                        <h:graphicImage library="images" name="uax.gif" styleClass="anagrams" />                          
+                    </p:panelGrid>
+                </p:layoutUnit>                
+            </p:layout>                                            
         </h:body>
     </f:view>
 </html>

@@ -10,8 +10,19 @@ root {
     display: block;
 }
 
+body {
+    background: beige;
+}
+
 #northernLayout .ui-widget-content {
     background: transparent;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url('../resources/images/abacus.png');
+}
+
+#northernLayout {
+    padding: 0em 0em;    
 }
 
 #LoginLink, #LogoutLink {
@@ -29,10 +40,6 @@ root {
 
 #southernLayout .ui-widget-content, .footerLayout {
     background-color: rgb(210, 210, 210)
-}
-
-body {
-    background: beige;
 }
 
 #centerLayout.ui-widget-content {
@@ -116,6 +123,15 @@ body {
     width: 130px !important;
 }
 
+.regularText {
+    font-size: 11px;
+}
+
+#LeftPanelLogin a {
+    text-decoration: none;
+    color: lightblue;    
+}
+
 .sections {
     background: rgb(210, 210, 210);
 }
@@ -142,3 +158,16 @@ body {
 #gridSections table {
     border-spacing: 0px !important;
 }
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.smallText {
+    font-size: 6px;
+}
+

@@ -6,7 +6,7 @@ package es.cediant.abacus;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import org.richfaces.event.ItemChangeEvent;
+import org.primefaces.event.TabChangeEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +34,8 @@ public class TabBean {
         this.effect = effect;
     }
     
-    public void onTabChange(ItemChangeEvent event) {  
-        logger.info("New tab: {}.", event.getComponent().getId());        
+    public void onTabChange(TabChangeEvent event) {  
+        logger.info("New tab: {}.", event.getTab().getTitle());        
     }  
 }  
 

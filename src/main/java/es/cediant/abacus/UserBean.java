@@ -95,10 +95,9 @@ public final class UserBean implements Serializable {
     }        
     
     public void login(ActionEvent actionEvent){
-        RequestContext context = RequestContext.getCurrentInstance();  
+        //RequestContext context = RequestContext.getCurrentInstance();  
         if(username != null && password != null) {  
-            UserHelper userQueries = new UserHelper();
-            User user = userQueries.getUserByUsername(username);
+            User user = getUserByUsername(username);
             if(user != null && user.getPassword().equals(password)){
                 this.setLoggedin(true);  
                 logger.info("Loggedin");
@@ -109,7 +108,7 @@ public final class UserBean implements Serializable {
         }
         logger.info("Username: {}", username);
         logger.info("Password: {}", password);
-        context.addCallbackParam("loggedIn", this.isLoggedin());  
+        //context.addCallbackParam("loggedin", this.isLoggedin());  
     }
     
     public void logout(){
