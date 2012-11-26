@@ -25,7 +25,7 @@
                             <h:graphicImage library="images" name="#{userBean.pic}" height="60px;" />                            
                             <h:panelGrid id="LeftPanelLogin" >
                                 <c:choose>
-                                    <c:when test="#{userBean.loggedin}">
+                                    <c:when test="${userBean.loggedin}">
                                         <h:outputText value="Logged in as:" style="color: lightgray" />
                                         <h:panelGrid columns="3">
                                             <h:outputText value="user" style="color: white; white-space: nowrap;" />

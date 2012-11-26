@@ -24,11 +24,11 @@ import org.slf4j.LoggerFactory;
 @ManagedBean(name="userBean")
 @SessionScoped
 public final class UserBean implements Serializable {
-    private static final long serialVersionUID = 8029419092316726679L;
+    private static final long serialVersionUID = 1L;
     private static final String SUCCESS = "success";
-    private static final String ERROR   = "error";
+    private static final String ERROR   = "error";    
 
-    private boolean loggedin;
+    private boolean loggedin = false;
     private String username;
     private String password;
     private String pic;
@@ -42,6 +42,7 @@ public final class UserBean implements Serializable {
         this.logger = LoggerFactory.getLogger(LoginBean.class);
         this.setPic("defaultPic.png");
         this.setLoggedin(false);
+        logger.info("loggedin= {}", this.loggedin);
     }
     
     /**
@@ -53,13 +54,17 @@ public final class UserBean implements Serializable {
         return userService;
     }
     
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
+    
     public boolean isLoggedin() {
         return loggedin;
     }
 
-    public void setLoggedin(boolean loggedIn) {
-        System.out.println("Loggedin = "+loggedIn);
-        this.loggedin = loggedIn;
+    public void setLoggedin(boolean loggedin) {
+        logger.info("Loggedin = "+loggedin);
+        this.loggedin = loggedin;
     }
 
     public String getUsername() {
@@ -67,7 +72,7 @@ public final class UserBean implements Serializable {
     }
 
     public void setUsername(String username) {
-        System.out.println("Username = "+username);
+        logger.info("Username = "+username);
         this.username = username;
     }
 
@@ -76,7 +81,7 @@ public final class UserBean implements Serializable {
     }
 
     public void setPassword(String password) {
-        System.out.println("Password = "+password);
+        logger.info("Password = "+password);
         this.password = password;
     }
     
@@ -85,7 +90,7 @@ public final class UserBean implements Serializable {
     }
 
     public void setPic(String pic) {
-        System.out.println("New Pic");   
+        logger.info("New Pic");   
         this.pic = pic;
     }        
     
