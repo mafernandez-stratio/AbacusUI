@@ -8,6 +8,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <f:view contentType="text/html">
+        <!-- HEAD -->
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -15,26 +16,32 @@
             </f:facet>
             <link href="resources/images/abacusIcon.ico" rel="shortcut icon" type="image/x-icon"/>
         </h:head>
+        <!-- -->
+        <!-- BODY -->
         <h:body>   
             <h:outputStylesheet library="css" name="style.css"  />
             <p:layout fullPage="true">
+                <!-- Northern Layout -->
                 <p:layoutUnit id="northernLayout" position="north" size="100" gutter="0" collapsible="true">
                     <div align="right">
                         <h:panelGrid columns="2" id="userPanel">
                             <h:graphicImage library="images" name="#{userBean.pic}" height="60px;" />
                             <h:panelGrid id="LeftPanelLogin" >
                                 <c:choose>
+                                    <!-- Loggedin -->
                                     <c:when test="#{userBean.loggedin}">
-                                        <h:outputText value="Logged in as:" style="color: lightgray" />
+                                        <h:outputText value="Logged in as:" styleClass="loggedin" />
                                         <h:panelGrid columns="3">
-                                            <h:outputText value="user" style="color: white; white-space: nowrap;" />
-                                            <h:outputText value="|" style="color: lightgray; white-space: nowrap;" />
-                                            <p:commandLink id="LogoutLink" update="userPanel" actionListener="#{userBean.logout}"
-                                                           style="color: lightblue;">                                            
+                                            <h:outputText value="user" styleClass="username" />
+                                            <h:outputText value="|" styleClass="loggedin" />
+                                            <p:commandLink id="LogoutLink" update="userPanel, :tabForm" actionListener="#{userBean.logout}"
+                                                           styleClass="loggingout">                                            
                                                 <h:outputText value="Logout" />
                                             </p:commandLink>    
                                         </h:panelGrid>
                                     </c:when>
+                                    <!-- -->
+                                    <!-- NOT Loggedin -->
                                     <c:otherwise>    
                                         <p:commandLink id="cLink" value="Login" />                                            
                                         <p:overlayPanel id="linkPanel" for="cLink" hideEffect="fade" appendToBody="true">
@@ -53,68 +60,93 @@
                                             </h:form>    
                                         </p:overlayPanel>   
                                     </c:otherwise>
+                                    <!-- -->
                                 </c:choose>                                                                         
-                            </h:panelGrid>                            
-                        </h:panelGrid>                       
-                    </div>
+                            </h:panelGrid>                                    
+                        </h:panelGrid>                               
+                    </div>                   
                 </p:layoutUnit>
-                <p:layoutUnit position="center" id="centerLayout">
+                <!-- -->
+                <!-- Center Layout -->
+                <p:layoutUnit position="center" id="centerLayout">   
+                    <h:form>
+                        <p:messages id="errorLine" autoUpdate="true" closable="true" severity="error, fatal" />
+                    </h:form>
                     <h:form id="tabForm"> 
                         <p:tabView id="tabView" dynamic="true" effect="#{tabBean.effect}" effectDuration="normal">
-                            <p:ajax event="tabChange" listener="#{tabBean.onTabChange}" />  
-                            <p:tab title="HOME" id="Home" disabled="false" titleStyleClass="tabsTitle">  
-                                <h:outputText value="Abacus Grid Manager &nbsp;" styleClass="bold"/>
-                                <h:outputText value="User Portal" styleClass="italic" />
-                                <br />
-                                <h:outputText value="&nbsp;" styleClass="smallText" /> 
-                                <h:panelGrid columns="3" styleClass="gridSection">
-                                    <p:panel styleClass="sections">
-                                        <h:outputText value="SECTION 1" />                                        
-                                    </p:panel>    
-                                    <p:panel styleClass="sections">
-                                        <h:outputText value="SECTION 2" />                                        
-                                    </p:panel>
-                                    <p:panel styleClass="sections">
-                                        <h:outputText value="SECTION 3" />                                        
-                                    </p:panel>
-                                </h:panelGrid>
-                                <br />
-                                <h:panelGrid columns="2" styleClass="gridSection">
-                                    <p:panel styleClass="sections">
-                                        <h:outputText value="SECTION 1" />                                        
-                                    </p:panel>    
-                                    <p:panel styleClass="sections">
-                                        <h:outputText value="SECTION 2" />                                        
-                                    </p:panel>
-                                </h:panelGrid> 
+                            <p:ajax event="tabChange" listener="#{tabBean.onTabChange}" /> 
+                            <!-- HOME TAB -->
+                            <p:tab title="HOME" id="Home" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">
+                                <h:form rendered="#{userBean.loggedin}">
+                                    <h:outputText value="Abacus Grid Manager &nbsp;" styleClass="bold"/>
+                                    <h:outputText value="User Portal" styleClass="italic" />
+                                    <br />
+                                    <h:outputText value="&nbsp;" styleClass="smallText" /> 
+                                    <h:panelGrid columns="3" styleClass="gridSection">
+                                        <p:panel styleClass="sections">
+                                            <h:outputText value="SECTION 1" />                                        
+                                        </p:panel>    
+                                        <p:panel styleClass="sections">
+                                            <h:outputText value="SECTION 2" />                                        
+                                        </p:panel>
+                                        <p:panel styleClass="sections">
+                                            <h:outputText value="SECTION 3" />                                        
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <br />
+                                    <h:panelGrid columns="2" styleClass="gridSection">
+                                        <p:panel styleClass="sections">
+                                            <h:outputText value="SECTION 1" />                                        
+                                        </p:panel>    
+                                        <p:panel styleClass="sections">
+                                            <h:outputText value="SECTION 2" />                                        
+                                        </p:panel>
+                                    </h:panelGrid> 
+                                </h:form>
                             </p:tab>
-                            <p:tab title="WORKLOAD" id="Workload" disabled="false" titleStyleClass="tabsTitle">  
-                                <h:panelGrid cellpadding="10">    
-                                    <h:outputText value="WORKLOAD"/>  
-                                </h:panelGrid>  
+                            <!-- -->
+                            <!-- WORKLOAD TAB -->
+                            <p:tab title="WORKLOAD" id="Workload" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
+                                <h:form rendered="#{userBean.loggedin}">
+                                    <h:panelGrid cellpadding="10">    
+                                        <h:outputText value="WORKLOAD"/>  
+                                    </h:panelGrid>  
+                                </h:form>
                             </p:tab>  
-                            <p:tab title="NODES" id="Nodes" disabled="false" titleStyleClass="tabsTitle">  
-                                <h:panelGrid cellpadding="10">  
-                                    <h:outputText value="Nodes"/>  
-                                </h:panelGrid>  
+                            <!-- -->
+                            <!-- NODES TAB -->
+                            <p:tab title="NODES" id="Nodes" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
+                                <h:form rendered="#{userBean.loggedin}">
+                                    <h:panelGrid cellpadding="10">  
+                                        <h:outputText value="Nodes"/>  
+                                    </h:panelGrid>  
+                                </h:form>
                             </p:tab>  
-                            <p:tab title="GRAPHS" id="Graphs" disabled="false" titleStyleClass="tabsTitle">  
-                                <h:panelGrid cellpadding="10">  
-                                    <h:outputText value="Graphs"/>  
-                                </h:panelGrid>  
+                            <!-- GRAPHS TAB -->
+                            <p:tab title="GRAPHS" id="Graphs" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
+                                <h:form rendered="#{userBean.loggedin}">
+                                    <h:panelGrid cellpadding="10">  
+                                        <h:outputText value="Graphs"/>  
+                                    </h:panelGrid>  
+                                </h:form>
                             </p:tab>
+                            <!-- -->
                         </p:tabView>                          
                     </h:form>
                 </p:layoutUnit>
+                <!-- -->
+                <!-- Southern Layout -->
                 <p:layoutUnit position="south" size="100" collapsible="true"
                               id="southernLayout" styleClass="footerLayout" gutter="0">
                     <p:panelGrid id="footerPanel" columns="2" columnClasses="imagesFooter rightAlign, imagesFooter leftAlign">
                         <h:graphicImage library="images" name="cediant.png" styleClass="anagrams" />
                         <h:graphicImage library="images" name="uax.gif" styleClass="anagrams" />                          
                     </p:panelGrid>
-                </p:layoutUnit>                
+                </p:layoutUnit>
+                <!-- -->
             </p:layout>                                            
         </h:body>
+        <!-- -->
     </f:view>
 </html>
 

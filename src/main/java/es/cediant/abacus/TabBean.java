@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class TabBean {  
     
     private String effect;
-    private final Logger logger;
+    private Logger logger;
 
     public TabBean(){
         this.logger = LoggerFactory.getLogger(LoginBean.class);

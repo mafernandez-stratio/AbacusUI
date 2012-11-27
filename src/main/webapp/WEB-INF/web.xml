@@ -18,6 +18,11 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
+    <!-- Fixes the reload problem -->
+    <!--context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param-->
     <!-- The Bootstrap listener to start up and shut down Spring's root WebApplicationContext. It is registered to Servlet Container -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

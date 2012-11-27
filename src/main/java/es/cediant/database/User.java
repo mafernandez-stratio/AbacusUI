@@ -15,8 +15,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name="user", catalog="webdb", uniqueConstraints = @UniqueConstraint(columnNames="username"))
 public class User implements java.io.Serializable {
-    private static final long serialVersionUID = 7925432828907566606L;
-
+    private long serialVersionUID = 1L;
     private Integer id;
     private String username;
     private String password;

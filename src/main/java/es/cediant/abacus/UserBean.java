@@ -5,9 +5,10 @@
 package es.cediant.abacus;
 
 import es.cediant.database.User;
-import es.cediant.database.UserHelper;
 import es.cediant.service.IUserService;
+import java.io.IOException;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -24,15 +25,15 @@ import org.slf4j.LoggerFactory;
 @ManagedBean(name="userBean")
 @SessionScoped
 public final class UserBean implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private static final String SUCCESS = "success";
-    private static final String ERROR   = "error";    
+    private long serialVersionUID = 1L;
+    private String SUCCESS = "success";
+    private String ERROR   = "error";    
 
     private boolean loggedin = false;
     private String username;
     private String password;
     private String pic;
-    private final Logger logger;
+    private Logger logger;
     
     //Spring User Service is injected...
     @ManagedProperty(value="#{UserService}")
@@ -104,15 +105,23 @@ public final class UserBean implements Serializable {
             } else {                      
                 this.setLoggedin(false);  
                 logger.info("Incorrect login");
+                //context.addCallbackParam("errorLogin", "The username or password you have entered is incorrect.");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR,"The username or password you have entered is incorrect.", "Try again!"));  
             }  
         }
         logger.info("Username: {}", username);
-        logger.info("Password: {}", password);
-        //context.addCallbackParam("loggedin", this.isLoggedin());  
+        logger.info("Password: {}", password);          
     }
     
-    public void logout(){
+    public void logout() throws IOException{
+        this.setLoggedin(false);
         logger.info("Loggedout");
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();        
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();    
+        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+    }
+
+    private User getUserByUsername(String username) {
+        return getUserService().getUserByUsername(username);
     }
 }

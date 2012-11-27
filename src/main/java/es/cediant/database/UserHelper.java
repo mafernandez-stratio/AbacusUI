@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class UserHelper {
     Session session = null;
-    private final Logger logger;
+    private Logger logger;
 
     public UserHelper() {
         this.logger = LoggerFactory.getLogger(UserHelper.class);

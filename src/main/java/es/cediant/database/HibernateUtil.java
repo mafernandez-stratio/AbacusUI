@@ -18,8 +18,8 @@ import org.hibernate.service.ServiceRegistryBuilder;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
-    private static final ServiceRegistry serviceRegistry;
+    private static SessionFactory sessionFactory;
+    private static ServiceRegistry serviceRegistry;
     
     static {
         try {

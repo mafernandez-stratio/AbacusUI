@@ -119,8 +119,7 @@ body {
 }
 
 #LoginForm input[type="password"] {
-    font-size: 1.2em !important; 
-    width: 130px !important;
+    width: 128px !important;
 }
 
 .regularText {
@@ -132,23 +131,28 @@ body {
     color: lightblue;    
 }
 
+.loggedin {
+    color: lightgray;
+    white-space: nowrap;
+}
+
+.username {
+    color: white; 
+    white-space: nowrap;
+}
+
+.loggingout {
+    color: lightblue;
+}
+
 .sections {
     background: rgb(210, 210, 210);
 }
 
 .gridSection {
-    border: 2px solid rgb(66, 123, 189); 
     border-spacing: 0px !important;
     margin: 0 !important;
     padding: 0px !important;
-}
-
-.gridSection tbody {
-    border: 2px solid rgb(166, 34, 109) !important;    
-}
-
-.gridSection table {
-    border: 2px solid rgb(200, 150, 200) !important;  
 }
 
 .tabs {
@@ -169,5 +173,16 @@ body {
 
 .smallText {
     font-size: 6px;
+}
+
+.ui-messages-error {
+    border: 0px;
+    margin: 0px;
+    padding: 2px;
+    text-align:  right;
+}
+
+.ui-messages-error-icon {
+    background: none !important;
 }
 
