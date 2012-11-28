@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>es.cediant</groupId>
-    <artifactId>SpringJSF</artifactId>
+    <artifactId>Abacus</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>SpringJSF</name>
+    <name>Abacus</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
