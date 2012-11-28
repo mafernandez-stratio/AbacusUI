@@ -19,7 +19,7 @@
         <!-- -->
         <!-- BODY -->
         <h:body>   
-            <h:outputStylesheet library="css" name="style.css"  />
+            <h:outputStylesheet library="css" name="style.css" />
             <p:layout fullPage="true">
                 <!-- Northern Layout -->
                 <p:layoutUnit id="northernLayout" position="north" size="100" gutter="0" collapsible="true">
@@ -109,8 +109,26 @@
                             <p:tab title="WORKLOAD" id="Workload" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
                                 <h:form rendered="#{userBean.loggedin}">
                                     <h:panelGrid cellpadding="10">    
-                                        <h:outputText value="WORKLOAD"/>  
+                                        <h:outputText value="WORKLOAD"/>                                         
                                     </h:panelGrid>  
+                                    <p:dataTable var="service" value="#{servicesBean.services}" 
+                                                 paginator="true" rows="20"
+                                                 selection="#{servicesBean.selectedService}" selectionMode="single"> 
+                                        <p:ajax event="rowSelect" listener="#{serviceBean.onRowSelect}" />  
+                                        <!--p:ajax event="rowUnselect" 
+                                                   listener="{serviceBean.onRowUnselect}" 
+                                                   update=":form:display :form:growl"
+                                                   oncomplete="carDialog.show()"/-->  
+                                        <f:facet name="header">  
+                                            Services  
+                                        </f:facet>
+                                        <p:column headerText="Name">  
+                                            <h:outputText value="#{service.name}" />  
+                                        </p:column> 
+                                        <f:facet name="footer">  
+                                            Services from providers
+                                        </f:facet>  
+                                    </p:dataTable>
                                 </h:form>
                             </p:tab>  
                             <!-- -->

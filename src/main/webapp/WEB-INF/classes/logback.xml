@@ -15,7 +15,7 @@
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_FOLDER}/${logName}</file>
         <encoder>
-            <pattern>%date{dd-MMM-yyyy EEE HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%date{dd-MMM-yyyy EEE HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%file:%line] - %msg%n</pattern>
         </encoder>
     </appender>
 

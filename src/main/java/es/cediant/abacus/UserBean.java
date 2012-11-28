@@ -14,7 +14,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +39,7 @@ public final class UserBean implements Serializable {
     IUserService userService;
     
     public UserBean() {      
-        this.logger = LoggerFactory.getLogger(LoginBean.class);
+        this.logger = LoggerFactory.getLogger(UserBean.class);
         this.setPic("defaultPic.png");
         this.setLoggedin(false);
         logger.info("loggedin= {}", this.loggedin);

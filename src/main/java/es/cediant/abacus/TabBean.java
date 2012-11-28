@@ -22,7 +22,7 @@ public class TabBean {
     private Logger logger;
 
     public TabBean(){
-        this.logger = LoggerFactory.getLogger(LoginBean.class);
+        this.logger = LoggerFactory.getLogger(TabBean.class);
         this.setEffect("fade");
     }
     
