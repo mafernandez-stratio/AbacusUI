@@ -7,10 +7,11 @@ package es.cediant.abacus;
 import es.cediant.cimon.OpenLMIproviders;
 import es.cediant.cimon.Service;
 import java.util.ArrayList;
-import java.util.logging.Level;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +26,10 @@ public class ServicesBean {
     private Logger logger;
     
     private OpenLMIproviders providers;
-    private ArrayList<Service> services;
-    private Service selectedService;
+    private List<Service> services;
+    private Service selectedService;   
+    private ServiceDataModel servicesName;
+    // private ServiceDataModel<Service> servicesName;
         
     /**
      * Creates a new instance of ServicesBean
@@ -37,7 +40,7 @@ public class ServicesBean {
         this.services = new ArrayList<>();
     }
     
-    public ArrayList<Service> getServices() {
+    public List<Service> getServices() {
         try {
             fetchServices();
             return services;
@@ -53,7 +56,9 @@ public class ServicesBean {
     
     public void fetchServices() throws Throwable {
         providers.fetchServices();
+        providers.sortServices();
         this.services = providers.getServices();
+        this.servicesName = new ServiceDataModel(this.services);
     }
     
     public Service getSelectedService(){
@@ -64,7 +69,22 @@ public class ServicesBean {
         this.selectedService = selectedService;
     }
     
+    public ServiceDataModel getServicesName() {
+        this.setServicesName(new ServiceDataModel(this.getServices()));
+        return this.servicesName;
+    }
+
+    public void setServicesName(ServiceDataModel servicesName) {
+        this.servicesName = servicesName;
+    }
+    
     public void onRowSelect(SelectEvent event) {  
-        event.getObject();
+        String name = ((Service) event.getObject()).getName();
+        this.logger.info("\""+name+"\" selected.");
+    }
+    
+    public void onRowUnselect(UnselectEvent event) { 
+        String name = ((Service) event.getObject()).getName();
+        this.logger.info("\""+name+"\" unselected.");
     }
 }

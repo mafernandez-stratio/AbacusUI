@@ -6,6 +6,8 @@ package es.cediant.cimon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -15,13 +17,13 @@ public class OpenLMIproviders implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    private ArrayList<Service> services;
+    private List<Service> services;
 
     public OpenLMIproviders() {
         this.services = new ArrayList<>();
     }
     
-    public ArrayList<Service> getServices() {
+    public List<Service> getServices() {
         return services;
     }
 
@@ -31,9 +33,15 @@ public class OpenLMIproviders implements Serializable {
     
     public void fetchServices() throws Throwable {
         services.clear();
+        services.add(new Service("take"));
         for (int i=0; i<40; i++){
             services.add(new Service("service"+i));
         }           
+        services.add(new Service("contact"));
+    }
+
+    public void sortServices() {
+        Collections.sort(services, new ServiceComparator());
     }
     
 }

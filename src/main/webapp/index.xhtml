@@ -111,10 +111,14 @@
                                     <h:panelGrid cellpadding="10">    
                                         <h:outputText value="WORKLOAD"/>                                         
                                     </h:panelGrid>  
-                                    <p:dataTable var="service" value="#{servicesBean.services}" 
-                                                 paginator="true" rows="20"
-                                                 selection="#{servicesBean.selectedService}" selectionMode="single"> 
-                                        <p:ajax event="rowSelect" listener="#{serviceBean.onRowSelect}" />  
+                                    <p:dataTable id="servicesTable" styleClass="serviceTable"
+                                                 var="service" value="#{servicesBean.servicesName}" 
+                                                 paginator="true" rows="10"
+                                                 selection="#{servicesBean.selectedService}" selectionMode="single"
+                                                 lazy="true">
+                                                 <!-- -->
+                                        <p:ajax event="rowSelect" listener="#{servicesBean.onRowSelect}" />  
+                                        <p:ajax event="rowUnselect" listener="#{servicesBean.onRowUnselect}" />
                                         <!--p:ajax event="rowUnselect" 
                                                    listener="{serviceBean.onRowUnselect}" 
                                                    update=":form:display :form:growl"
@@ -122,7 +126,7 @@
                                         <f:facet name="header">  
                                             Services  
                                         </f:facet>
-                                        <p:column headerText="Name">  
+                                        <p:column id="namesCol" headerText="Name" styleClass="nameCol">  
                                             <h:outputText value="#{service.name}" />  
                                         </p:column> 
                                         <f:facet name="footer">  
