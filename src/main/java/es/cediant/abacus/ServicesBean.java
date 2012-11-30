@@ -6,6 +6,7 @@ package es.cediant.abacus;
 
 import es.cediant.cimon.OpenLMIproviders;
 import es.cediant.cimon.Service;
+import es.cediant.cimon.ServiceDataModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -23,19 +24,17 @@ import org.slf4j.LoggerFactory;
 @RequestScoped
 public class ServicesBean {
 
-    private Logger logger;
+    final Logger logger = LoggerFactory.getLogger(ServicesBean.class);
     
     private OpenLMIproviders providers;
     private List<Service> services;
     private Service selectedService;   
     private ServiceDataModel servicesName;
-    // private ServiceDataModel<Service> servicesName;
         
     /**
      * Creates a new instance of ServicesBean
      */
     public ServicesBean() {
-        this.logger = LoggerFactory.getLogger(ServicesBean.class);
         this.providers = new OpenLMIproviders();
         this.services = new ArrayList<>();
     }

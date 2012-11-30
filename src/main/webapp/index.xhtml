@@ -19,7 +19,10 @@
         <!-- -->
         <!-- BODY -->
         <h:body>   
+            <!-- OUTPUTS -->
             <h:outputStylesheet library="css" name="style.css" />
+            <h:outputScript library="js" name="common.js" />
+            <!-- -->            
             <p:layout fullPage="true">
                 <!-- Northern Layout -->
                 <p:layoutUnit id="northernLayout" position="north" size="100" gutter="0" collapsible="true">
@@ -115,8 +118,8 @@
                                                  var="service" value="#{servicesBean.servicesName}" 
                                                  paginator="true" rows="10"
                                                  selection="#{servicesBean.selectedService}" selectionMode="single"
-                                                 lazy="true">
-                                                 <!-- -->
+                                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                                                 rowsPerPageTemplate="10,20">
                                         <p:ajax event="rowSelect" listener="#{servicesBean.onRowSelect}" />  
                                         <p:ajax event="rowUnselect" listener="#{servicesBean.onRowUnselect}" />
                                         <!--p:ajax event="rowUnselect" 
@@ -127,7 +130,10 @@
                                             Services  
                                         </f:facet>
                                         <p:column id="namesCol" headerText="Name" styleClass="nameCol">  
-                                            <h:outputText value="#{service.name}" />  
+                                            <h:outputText value="&nbsp; #{service.name}" />  
+                                        </p:column> 
+                                        <p:column id="infoCol" headerText="Info" styleClass="nameCol">  
+                                            <h:outputText value="&nbsp; Info" />  
                                         </p:column> 
                                         <f:facet name="footer">  
                                             Services from providers
@@ -150,6 +156,15 @@
                                     <h:panelGrid cellpadding="10">  
                                         <h:outputText value="Graphs"/>  
                                     </h:panelGrid>  
+                                    <p:poll interval="10" update="linear" />
+                                    <p:lineChart id="linear" value="#{chartBean.liveLinearModel}" 
+                                                 legendPosition="e" title="Linear Chart" 
+                                                 minY="0" maxY="10" 
+                                                 style="height:300px"
+                                                 zoom="true" animate="true"
+                                                 widgetVar="Linearchart">
+                                        <p:ajax event="itemSelect" listener="#{chartBean.itemSelect}" />
+                                    </p:lineChart>
                                 </h:form>
                             </p:tab>
                             <!-- -->

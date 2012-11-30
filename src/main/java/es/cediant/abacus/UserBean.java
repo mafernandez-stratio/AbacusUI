@@ -33,14 +33,13 @@ public final class UserBean implements Serializable {
     private String username;
     private String password;
     private String pic;
-    private Logger logger;
+    final Logger logger = LoggerFactory.getLogger(UserBean.class);
     
     //Spring User Service is injected...
     @ManagedProperty(value="#{UserService}")
     IUserService userService;
     
     public UserBean() {      
-        this.logger = LoggerFactory.getLogger(UserBean.class);
         this.setPic("defaultPic.png");
         this.setLoggedin(false);
         logger.info("loggedin= {}", this.loggedin);

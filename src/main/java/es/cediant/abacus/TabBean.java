@@ -19,10 +19,9 @@ import org.slf4j.LoggerFactory;
 public class TabBean {  
     
     private String effect;
-    private Logger logger;
+    final Logger logger = LoggerFactory.getLogger(TabBean.class);
 
     public TabBean(){
-        this.logger = LoggerFactory.getLogger(TabBean.class);
         this.setEffect("fade");
     }
     
