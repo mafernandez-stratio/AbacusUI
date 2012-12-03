@@ -6,7 +6,8 @@
       xmlns:rich="http://richfaces.org/rich"
       xmlns:a4j="http://richfaces.org/a4j"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
     <f:view contentType="text/html">
         <!-- HEAD -->
         <h:head>
@@ -147,7 +148,12 @@
                                 <h:form rendered="#{userBean.loggedin}">
                                     <h:panelGrid cellpadding="10">  
                                         <h:outputText value="Nodes"/>  
-                                    </h:panelGrid>  
+                                    </h:panelGrid>   
+                                    <!-- Jasper report -->
+                                    <p:commandLink id="reportLink" actionListener="#{reportBean.createReport}">  
+                                        <h:outputText value="Create Report" />  
+                                    </p:commandLink>  
+                                    <!-- -->
                                 </h:form>
                             </p:tab>  
                             <!-- GRAPHS TAB -->
