@@ -320,7 +320,9 @@
                 <artifactId>jasperreports-maven-plugin</artifactId>
                 <version>${jasper.maven.version}</version>
                 <configuration>
-                    <outputDirectory>jasper</outputDirectory>
+                    <!--compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler-->
+                    <outputDirectory>src/main/resources/</outputDirectory>
+                    <sourceDirectory>src/main/resources/</sourceDirectory>
                 </configuration>
                 <executions>
                     <execution>

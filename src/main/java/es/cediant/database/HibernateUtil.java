@@ -4,7 +4,8 @@
  */
 package es.cediant.database;
 
-import org.hibernate.cfg.AnnotationConfiguration;
+import java.util.Enumeration;
+import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -26,7 +27,14 @@ public class HibernateUtil {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
             Configuration configuration = new Configuration();
-            configuration.configure();
+            configuration.configure(); 
+            
+            Properties properties = configuration.getProperties();
+            properties.stringPropertyNames();
+            for(String key : properties.stringPropertyNames()) {
+                String value = properties.getProperty(key);
+                System.out.println(key + " => " + value);
+            }
             serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();        
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {
