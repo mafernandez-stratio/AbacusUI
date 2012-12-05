@@ -2,7 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+package es.cediant.database;
 
+import java.util.Enumeration;
+import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -14,10 +17,10 @@ import org.hibernate.service.ServiceRegistryBuilder;
  *
  * @author miguel
  */
-public class HibernateUtil {
+public class ConnectHibernate {
 
-    private static final SessionFactory sessionFactory;
-    private static final ServiceRegistry serviceRegistry;
+    private static SessionFactory sessionFactory;
+    private static ServiceRegistry serviceRegistry;
     
     static {
         try {
@@ -25,6 +28,13 @@ public class HibernateUtil {
             // config file.
             Configuration configuration = new Configuration();
             configuration.configure(); 
+            
+            Properties properties = configuration.getProperties();
+            properties.stringPropertyNames();
+            for(String key : properties.stringPropertyNames()) {
+                String value = properties.getProperty(key);
+                System.out.println(key + " => " + value);
+            }
             serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();        
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {

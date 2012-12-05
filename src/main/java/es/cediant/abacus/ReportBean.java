@@ -4,7 +4,7 @@
  */
 package es.cediant.abacus;
 
-import es.cediant.database.HibernateUtil;
+import es.cediant.database.ConnectHibernate;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -54,7 +54,7 @@ public class ReportBean {
     public void createReport() throws JRException, FileNotFoundException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException, IOException{
         logger.info("Creating report...");     
         
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = ConnectHibernate.getSessionFactory().getCurrentSession();
         // Session session = SessionFactory.getCurrentSession();
         Connection conn = session.disconnect();
         

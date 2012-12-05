@@ -20,7 +20,7 @@ public class UserHelper {
 
     public UserHelper() {
         this.logger = LoggerFactory.getLogger(UserHelper.class);
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+        this.session = ConnectHibernate.getSessionFactory().getCurrentSession();
     }
     
     public User getUserByUsername (String username){
