@@ -267,6 +267,9 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
+            <resource> 
+                <directory>target/classes</directory>
+            </resource>
         </resources>
         <plugins>
             <plugin>
