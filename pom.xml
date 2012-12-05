@@ -25,6 +25,8 @@
         <hibernate.core.version>4.1.7.Final</hibernate.core.version>
         <hibernate.version>3.1.3</hibernate.version>
         <hibernate.ejb3.version>1.0.2.GA</hibernate.ejb3.version>
+        <hibernate3.plugin.version>2.2</hibernate3.plugin.version>
+        <jdbc.driver.version>1.0</jdbc.driver.version>
         <transaction.version>1.1</transaction.version>
         <javassist.version>3.12.1.GA</javassist.version>
         <mysql.connector.version>5.1.21</mysql.connector.version>
@@ -321,8 +323,8 @@
                 <version>${jasper.maven.version}</version>
                 <configuration>
                     <!--compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler-->
-                    <outputDirectory>src/main/resources/</outputDirectory>
-                    <sourceDirectory>src/main/resources/</sourceDirectory>
+                    <!--outputDirectory>src/main/resources</outputDirectory-->
+                    <!--sourceDirectory>src/main/resources</sourceDirectory-->
                 </configuration>
                 <executions>
                     <execution>
@@ -338,7 +340,40 @@
                         <version>${jasper.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin>                        
+            <!--plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>hibernate3-maven-plugin</artifactId>
+                <version>${hibernate3.plugin.version}</version>
+                <configuration>
+                    <components>
+                        <component>
+                            <name>hbm2java</name>
+                            <outputDirectory>src/main/resources</outputDirectory>
+                            <implementation>jdbcconfiguration</implementation>
+                        </component>
+                        <component>
+                            <name>hbm2ddl</name>
+                            <implementation>jdbcconfiguration</implementation>
+                        </component>
+                        <component>
+                            <name>hbm2hbmxml</name>
+                            <outputDirectory>src/main/resources</outputDirectory>
+                        </component>
+                    </components>
+                    <componentProperties>    
+                        <drop>true</drop>
+                        <configurationfile>/src/main/resources/hibernate.cfg.xml</configurationfile>                    
+                    </componentProperties>
+                </configuration>  
+                <dependencies>
+                    <dependency>
+                        <groupId>jdbc.artifact.groupid</groupId>
+                        <artifactId>jdbc-driver</artifactId>
+                        <version>${jdbc.driver.version}</version>
+                    </dependency>
+                </dependencies>                       
+            </plugin-->            
         </plugins>
     </build>
     
