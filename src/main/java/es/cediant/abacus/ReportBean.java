@@ -4,7 +4,7 @@
  */
 package es.cediant.abacus;
 
-import es.cediant.database.ConnectHibernate;
+import es.cediant.database.DatabaseConnection;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,7 +21,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,20 +51,24 @@ public class ReportBean {
      * @param actionEvent
      */
     public void createReport() throws JRException, FileNotFoundException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException, IOException{
-        logger.info("Creating report...");     
+        logger.info("Creating report...");    
         
-        Session session = ConnectHibernate.getSessionFactory().getCurrentSession();
+        Connection conn = DatabaseConnection.getInstance().getConnection();                
+        
+        // Session session = ConnectHibernate.getSessionFactory().getCurrentSession();
         // Session session = SessionFactory.getCurrentSession();
-        Connection conn = session.disconnect();
+        // Connection conn = session.disconnect();
         
         // UserDAO userDAO = new UserDAO();
         // Session session = userDAO.getSessionFactory().getCurrentSession();   
         
-        JasperDesign jasperDesign = JRXmlLoader.load("report.jrxml");
+        Class.forName(DatabaseConnection.getInstance().getDriverName());       
+        
+        JasperDesign jasperDesign = JRXmlLoader.load("reports/report.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);  
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, conn);
-        JasperViewer.viewReport(jasperPrint,false);
-        JasperExportManager.exportReportToPdfFile(jasperPrint, "report.pdf");
+        JasperViewer.viewReport(jasperPrint, false);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, "reports/report.pdf");
                 
         /*ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = classLoader.getResource("/resources.properties").getPath();
@@ -99,6 +102,8 @@ public class ReportBean {
         
         // Class.forName(driver);
         // conn = DriverManager.getConnection(url, user, passwd);
-        //Statement stmt = (Statement) conn.createStatement();
+        // Statement stmt = (Statement) conn.createStatement();
     }
+    
+    
 }

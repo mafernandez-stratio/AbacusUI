@@ -4,11 +4,14 @@
  */
 package es.cediant.abacus;
 
+import es.cediant.database.DatabaseConnection;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -24,6 +27,7 @@ public class DocXML {
     private DocumentBuilderFactory factory;
     private DocumentBuilder builder;
     private Document doc;
+    private final Logger logger = LoggerFactory.getLogger(DatabaseConnection.class); 
     
     public DocXML (String fileName) throws ParserConfigurationException, SAXException, IOException{
         this.factory = DocumentBuilderFactory.newInstance();

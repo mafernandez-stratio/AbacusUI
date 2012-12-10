@@ -5,7 +5,6 @@
 package es.cediant.abacus;
 
 import java.io.Serializable;
-import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.primefaces.event.ItemSelectEvent;

@@ -267,9 +267,6 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-            <resource> 
-                <directory>target/classes</directory>
-            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -317,14 +314,14 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jasperreports-maven-plugin</artifactId>
                 <version>${jasper.maven.version}</version>
                 <configuration>
-                    <!--compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler-->
-                    <!--outputDirectory>src/main/resources</outputDirectory-->
-                    <!--sourceDirectory>src/main/resources</sourceDirectory-->
+                    <!compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
+                    <outputDirectory>src/main/resources</outputDirectory>
+                    <sourceDirectory>src/main/resources</sourceDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -340,7 +337,7 @@
                         <version>${jasper.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>                        
+            </plugin-->                        
             <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
