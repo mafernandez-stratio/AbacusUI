@@ -8,6 +8,6 @@
     <property name="hibernate.connection.username">webdb_user</property>
     <property name="hibernate.connection.password">admin</property>
     <mapping resource="es/cediant/database/User.hbm.xml"/>
-    <mapping resource="es/cediant/database/Serie.hbm.xml"/>
+    <!--mapping resource="es/cediant/database/Serie.hbm.xml"/-->
   </session-factory>
 </hibernate-configuration>

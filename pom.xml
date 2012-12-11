@@ -22,12 +22,15 @@
         <taglibs.version>1.1.2</taglibs.version>
         <richfaces.version>4.2.2.Final</richfaces.version>
         <primefaces.version>3.4.2</primefaces.version>
-        <hibernate.core.version>4.1.7.Final</hibernate.core.version>
-        <hibernate.version>3.1.3</hibernate.version>
+        <hibernate.version>3.2.7.ga</hibernate.version>        
+        <hibernate.core.version>4.1.7.Final</hibernate.core.version> 
+        <hibernate.entity.version>4.1.7.Final</hibernate.entity.version>    
+        <hibernate.annotations.version>3.5.6-Final</hibernate.annotations.version>
         <hibernate.ejb3.version>1.0.2.GA</hibernate.ejb3.version>
         <hibernate3.plugin.version>2.2</hibernate3.plugin.version>
         <jdbc.driver.version>1.0</jdbc.driver.version>
         <transaction.version>1.1</transaction.version>
+        <jta.version>1.1</jta.version>
         <javassist.version>3.12.1.GA</javassist.version>
         <mysql.connector.version>5.1.21</mysql.connector.version>
         <c3p0.version>0.9.1.2</c3p0.version>
@@ -184,30 +187,35 @@
             <version>${primefaces.version}</version>
         </dependency>            
         <!-- Hibernate dependencies -->
+        <!--dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.core.version}</version>
         </dependency>
+        <!--dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>${hibernate.annotations.version}</version>
+        </dependency-->
+        <!--dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.entity.version}</version>
+        </dependency-->
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>${javassist.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.5.ga</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.3.2.GA</version>
-        </dependency>
+        </dependency>                        
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>jta</artifactId>
-            <version>1.0.1B</version>
+            <version>${jta.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -237,11 +245,11 @@
             <artifactId>c3p0</artifactId>
             <version>${c3p0.version}</version>
         </dependency>  
-        <dependency>
+        <!--dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
             <version>${hibernate.core.version}</version>
-        </dependency>
+        </dependency-->
         <!-- SLF4J dependencies -->
         <dependency>
             <groupId>org.slf4j</groupId>

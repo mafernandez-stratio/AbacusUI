@@ -39,7 +39,13 @@
     </bean>
  
     <!-- Data Source Declaration -->
-    <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    <!--bean id="DataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/webdb" />
+        <property name="username" value="webdb_user" />
+        <property name="password" value="admin" />
+    </bean-->
+    <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">    
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/webdb" />
         <property name="user" value="webdb_user" />

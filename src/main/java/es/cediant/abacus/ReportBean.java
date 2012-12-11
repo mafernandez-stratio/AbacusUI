@@ -37,7 +37,7 @@ public class ReportBean {
     
     final Logger logger = LoggerFactory.getLogger(ReportBean.class);   
 
-    @Autowired
+    //@Autowired
     private SessionFactory SessionFactory;
     
     /**

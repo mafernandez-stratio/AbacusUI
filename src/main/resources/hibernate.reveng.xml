@@ -3,5 +3,5 @@
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="webdb"/>
   <table-filter match-name="user"/>
-  <table-filter match-name="serie"/>
+  <!--table-filter match-name="serie"/-->
 </hibernate-reverse-engineering>

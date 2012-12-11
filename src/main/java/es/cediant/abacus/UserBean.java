@@ -25,7 +25,8 @@ import org.slf4j.LoggerFactory;
 @SessionScoped
 public final class UserBean implements Serializable {
     
-    private long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+
     private String SUCCESS = "success";
     private String ERROR   = "error";    
 

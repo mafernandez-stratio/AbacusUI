@@ -4,7 +4,6 @@
  */
 package es.cediant.database;
 
-import java.util.Enumeration;
 import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -19,8 +18,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
  */
 public class ConnectHibernate {
 
-    private static SessionFactory sessionFactory;
-    private static ServiceRegistry serviceRegistry;
+    private static final SessionFactory sessionFactory;
     
     static {
         try {
@@ -34,9 +32,8 @@ public class ConnectHibernate {
             for(String key : properties.stringPropertyNames()) {
                 String value = properties.getProperty(key);
                 System.out.println(key + " => " + value);
-            }
-            serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();        
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            }           
+            sessionFactory = configuration.buildSessionFactory();
         } catch (Throwable ex) {
             // Log the exception. 
             System.err.println("Initial SessionFactory creation failed." + ex);
