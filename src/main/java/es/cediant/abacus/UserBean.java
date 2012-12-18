@@ -95,6 +95,10 @@ public final class UserBean implements Serializable {
         this.pic = pic;
     }        
     
+    private User getUserByUsername(String username) {
+        return getUserService().getUserByUsername(username);
+    }
+    
     public void login(ActionEvent actionEvent){
         //RequestContext context = RequestContext.getCurrentInstance();  
         if(username != null && password != null) {  
@@ -120,8 +124,5 @@ public final class UserBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();    
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
-
-    private User getUserByUsername(String username) {
-        return getUserService().getUserByUsername(username);
-    }
+    
 }

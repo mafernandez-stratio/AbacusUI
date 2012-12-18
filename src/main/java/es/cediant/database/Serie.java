@@ -5,7 +5,7 @@ package es.cediant.database;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+//import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,6 +15,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="serie", catalog="webdb")
 public class Serie  implements java.io.Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     private Integer idserie;
     private String name;
@@ -37,7 +39,7 @@ public class Serie  implements java.io.Serializable {
        this.comment = comment;
     }
    
-    @Id @GeneratedValue(strategy=IDENTITY)    
+    @Id //@GeneratedValue(strategy=IDENTITY)    
     @Column(name="idserie", unique=true, nullable=false)
     public Integer getIdserie() {
         return this.idserie;

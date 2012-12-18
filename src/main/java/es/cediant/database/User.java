@@ -5,7 +5,7 @@ package es.cediant.database;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+// import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -31,7 +31,7 @@ public class User  implements java.io.Serializable {
        this.password = password;
     }
    
-    @Id @GeneratedValue(strategy=IDENTITY)    
+    @Id //@GeneratedValue(strategy=IDENTITY)    
     @Column(name="id", unique=true, nullable=false)
     public Integer getId() {
         return this.id;

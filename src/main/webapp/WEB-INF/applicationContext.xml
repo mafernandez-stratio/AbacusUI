@@ -26,17 +26,29 @@
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
     <!-- Beans Declaration -->
-    <bean id="User" class="es.cediant.database.User"/>
+    <bean id="User" class="es.cediant.database.User"/>  
+    <bean id="Serie" class="es.cediant.database.Serie"/>    
  
-    <!-- User Service Declaration -->
+    <!-- Services Declaration -->
     <bean id="UserService" class="es.cediant.service.UserService">
         <property name="userDAO" ref="UserDAO" />
     </bean>
+    <bean id="SerieService" class="es.cediant.service.SerieService">
+        <property name="serieDAO" ref="SerieDAO" />
+    </bean>
  
-    <!-- User DAO Declaration -->
+    <!-- DAOs Declaration -->
     <bean id="UserDAO" class="es.cediant.dao.UserDAO">
         <property name="sessionFactory" ref="SessionFactory" />
     </bean>
+    <bean id="SerieDAO" class="es.cediant.dao.SerieDAO">
+        <property name="sessionFactory" ref="SessionFactory" />
+    </bean>
+    
+    <!-- hibernate.properties load -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="classpath:hibernate.properties" />
  
     <!-- Data Source Declaration -->
     <!--bean id="DataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -45,7 +57,7 @@
         <property name="username" value="webdb_user" />
         <property name="password" value="admin" />
     </bean-->
-    <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">    
+    <!--bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">    
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/webdb" />
         <property name="user" value="webdb_user" />
@@ -53,6 +65,15 @@
         <property name="maxPoolSize" value="10" />
         <property name="maxStatements" value="0" />
         <property name="minPoolSize" value="5" />
+    </bean-->
+    <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">    
+        <property name="driverClass" value="${hibernate.connection.driverClassName}" />
+        <property name="jdbcUrl" value="${hibernate.connection.url}" />
+        <property name="user" value="${hibernate.connection.username}" />
+        <property name="password" value="${hibernate.connection.password}" />
+        <property name="maxPoolSize" value="${hibernate.maxPoolSize}" />
+        <property name="maxStatements" value="${hibernate.maxStatements}" />
+        <property name="minPoolSize" value="${hibernate.minPoolSize}" />
     </bean>
  
     <!-- Session Factory Declaration -->
@@ -61,12 +82,15 @@
         <property name="annotatedClasses">
             <list>
                 <value>es.cediant.database.User</value>
+                <value>es.cediant.database.Serie</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <!--prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop-->
+                <!--prop key="hibernate.query.factory_class">${hibernate.query.factory_class}</prop-->
             </props>
         </property>
     </bean>

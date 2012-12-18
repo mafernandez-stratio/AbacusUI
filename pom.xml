@@ -16,15 +16,15 @@
         <maven.version>2.5.1</maven.version>
         <maven.war.version>2.3</maven.war.version>
         <javaee.web.version>6.0</javaee.web.version>
-        <spring.version>3.1.2.RELEASE</spring.version>        
-        <faces.version>2.1.13</faces.version>
+        <spring.version>3.1.1.RELEASE</spring.version>        
+        <faces.version>2.1.6</faces.version>
         <jstl.version>1.2</jstl.version>
         <taglibs.version>1.1.2</taglibs.version>
         <richfaces.version>4.2.2.Final</richfaces.version>
         <primefaces.version>3.4.2</primefaces.version>
         <hibernate.version>3.2.7.ga</hibernate.version>        
-        <hibernate.core.version>4.1.7.Final</hibernate.core.version> 
-        <hibernate.entity.version>4.1.7.Final</hibernate.entity.version>    
+        <hibernate.core.version>4.1.0.Final</hibernate.core.version> 
+        <hibernate.entity.version>4.1.0.Final</hibernate.entity.version>    
         <hibernate.annotations.version>3.5.6-Final</hibernate.annotations.version>
         <hibernate.ejb3.version>1.0.2.GA</hibernate.ejb3.version>
         <hibernate3.plugin.version>2.2</hibernate3.plugin.version>
@@ -32,12 +32,14 @@
         <transaction.version>1.1</transaction.version>
         <jta.version>1.1</jta.version>
         <javassist.version>3.12.1.GA</javassist.version>
-        <mysql.connector.version>5.1.21</mysql.connector.version>
+        <mysql.connector.version>5.1.17</mysql.connector.version>
         <c3p0.version>0.9.1.2</c3p0.version>
         <stdext.version>2.0</stdext.version>   
-        <slf4j.version>1.7.2</slf4j.version>     
+        <slf4j.version>1.7.2</slf4j.version> 
+        <slf4j.log4j.version>1.7.2</slf4j.log4j.version>    
         <jasper.version>3.5.3</jasper.version>
         <jasper.maven.version>1.0-beta-2</jasper.maven.version>
+        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
 
     <dependencies>        
@@ -152,12 +154,12 @@
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
-            <version>2.1.6</version>
+            <version>${faces.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
-            <version>2.1.6</version>
+            <version>${faces.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -217,11 +219,11 @@
             <artifactId>jta</artifactId>
             <version>${jta.version}</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>ejb3-persistence</artifactId>
             <version>${hibernate.ejb3.version}</version>
-        </dependency>
+        </dependency-->
         <!-- MySQL Java Connector dependencies -->
         <dependency>
             <groupId>javax.sql</groupId>
@@ -251,23 +253,22 @@
             <version>${hibernate.core.version}</version>
         </dependency-->
         <!-- SLF4J dependencies -->
-        <dependency>
+        <!--dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
-        </dependency>
+        </dependency-->
         <dependency> 
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>test</scope>
+            <version>${slf4j.log4j.version}</version>
         </dependency>
         <!-- Jasper Reports dependencies -->
         <dependency>
             <groupId>jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>${jasper.version}</version>
-        </dependency>
+        </dependency>          
     </dependencies>
 
     <build>
@@ -322,12 +323,12 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jasperreports-maven-plugin</artifactId>
                 <version>${jasper.maven.version}</version>
                 <configuration>
-                    <!compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
+                    <compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
                     <outputDirectory>src/main/resources</outputDirectory>
                     <sourceDirectory>src/main/resources</sourceDirectory>
                 </configuration>
@@ -345,7 +346,7 @@
                         <version>${jasper.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin-->                        
+            </plugin>                        
             <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
