@@ -110,7 +110,7 @@
                             </p:tab>
                             <!-- -->
                             <!-- WORKLOAD TAB -->
-                            <p:tab title="WORKLOAD" id="Workload" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
+                            <p:tab title="SERVICES" id="Services" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
                                 <h:form rendered="#{userBean.loggedin}">
                                     <h:panelGrid cellpadding="10">    
                                         <h:outputText value="WORKLOAD"/>                                         
@@ -144,7 +144,7 @@
                             </p:tab>  
                             <!-- -->
                             <!-- NODES TAB -->
-                            <p:tab title="NODES" id="Nodes" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
+                            <p:tab title="REPORTS" id="Reports" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
                                 <h:form rendered="#{userBean.loggedin}">
                                     <h:panelGrid cellpadding="10">  
                                         <h:outputText value="Nodes"/>  

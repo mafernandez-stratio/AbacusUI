@@ -5,12 +5,13 @@
 package es.cediant.dao;
 
 import es.cediant.database.Serie;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
  * @author miguel
  */
 public interface ISerieDAO {
-    public List<Serie> getSeries();
+    public HashMap<String, ArrayList<Serie>> getSeries();
 }

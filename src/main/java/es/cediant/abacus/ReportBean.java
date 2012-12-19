@@ -6,13 +6,23 @@ package es.cediant.abacus;
 
 import es.cediant.database.Serie;
 import es.cediant.service.ISerieService;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.swing.table.TableModel;
 import javax.xml.parsers.ParserConfigurationException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -20,9 +30,11 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -49,7 +61,7 @@ public class ReportBean {
         this.serieService = serieService;
     }
     
-    private List<Serie> getSeries() {
+    private HashMap<String, ArrayList<Serie>> getSeries() {
         return getSerieService().getSeries();
     }
     
@@ -58,9 +70,23 @@ public class ReportBean {
      * @param actionEvent
      */
     public void createReport() throws JRException, FileNotFoundException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException, IOException{
-        logger.info("Creating report...");    
+        logger.info("Creating report...");                    
         
-        List<Serie> series = getSeries();        
+        Properties prop = new Properties();
+        //prop.load(new FileInputStream(getClass().getResourceAsStream("/hibernate.properties")));
+        prop.load(getClass().getResourceAsStream("/hibernate.properties"));
+        
+        Class.forName(prop.getProperty("hibernate.connection.driverClassName"));        
+        
+        String url = prop.getProperty("hibernate.connection.url");
+        String username = prop.getProperty("hibernate.connection.username");
+        String password = prop.getProperty("hibernate.connection.password");        
+        
+        Connection conn = DriverManager.getConnection(url, username, password);
+        
+        /*HashMap<String, ArrayList<Serie>> series = getSeries();        
+                        
+        JRTableModelDataSource jrttds = new JRTableModelDataSource(new CustomDataSource(series));*/
         
         //Connection conn = DatabaseConnection.getInstance().getConnection();              
         
@@ -73,11 +99,24 @@ public class ReportBean {
         
         // Class.forName(DatabaseConnection.getInstance().getDriverName());       
         
-        JasperDesign jasperDesign = JRXmlLoader.load("reports/report.jrxml");
+        Map <String, Object> parameters = new HashMap<>();
+        parameters.put("ReportTitle", "User Report");
+        parameters.put("DataFile", "/reports/report.jrxml"); 
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        InputStream reportStream = facesContext.getExternalContext().getResourceAsStream("/WEB-INF/reports/report.jrxml");        
+        
+        JasperDesign jasperDesign = JRXmlLoader.load(reportStream);
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);        
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+        //JasperViewer.viewReport(jasperPrint, false);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, "/reports/report.pdf");
+        
+        /*JasperDesign jasperDesign = JRXmlLoader.load("reports/report.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);        
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap(), jrttds);
         JasperViewer.viewReport(jasperPrint, false);
-        JasperExportManager.exportReportToPdfFile(jasperPrint, "reports/report.pdf");
+        JasperExportManager.exportReportToPdfFile(jasperPrint, "reports/report.pdf");*/
                 
         /*ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = classLoader.getResource("/resources.properties").getPath();

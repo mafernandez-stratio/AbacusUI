@@ -6,6 +6,8 @@ package es.cediant.service;
 
 import es.cediant.dao.ISerieDAO;
 import es.cediant.database.Serie;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -24,7 +26,7 @@ public class SerieService implements ISerieService {
     
     
     @Override
-    public List<Serie> getSeries() {
+    public HashMap<String, ArrayList<Serie>> getSeries() {
         return getSerieDAO().getSeries();
     }
     

@@ -5,8 +5,8 @@
 package es.cediant.dao;
 
 import es.cediant.database.Serie;
-import es.cediant.database.User;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,12 +25,24 @@ public class SerieDAO implements ISerieDAO {
     }
         
     @Override
-    public List<Serie> getSeries() {
+    public HashMap<String, ArrayList<Serie>> getSeries() {
         Session session = getSessionFactory().getCurrentSession();
         //Query q = session.createQuery("from User as user where user.username LIKE '"+username+"'");
         Query q = session.createQuery("from webdb.serie");
         // SELECT * FROM webdb.serie;
-        return q.list();
+        ArrayList<Serie> seriesList = (ArrayList<Serie>) q.list();
+        HashMap<String, ArrayList<Serie>> map = new HashMap<>();
+        for(int i=0; i<seriesList.size(); i++){
+            Serie currentSerie = seriesList.get(i);
+            if(map.containsKey(currentSerie.getName())){
+                map.get(currentSerie.getName()).add(currentSerie);
+            } else {                
+                ArrayList<Serie> currentArray = new ArrayList<>();
+                currentArray.add(currentSerie);
+                map.put(currentSerie.getName(), currentArray);
+            }           
+        }
+        return map;
     }
     
 }

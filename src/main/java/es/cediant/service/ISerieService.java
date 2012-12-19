@@ -5,7 +5,8 @@
 package es.cediant.service;
 
 import es.cediant.database.Serie;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,5 +14,5 @@ import java.util.List;
  */
 public interface ISerieService {
     
-    public List<Serie> getSeries();
+    public HashMap<String, ArrayList<Serie>> getSeries();
 }
