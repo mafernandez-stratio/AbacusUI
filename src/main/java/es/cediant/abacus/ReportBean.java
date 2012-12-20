@@ -10,10 +10,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +51,15 @@ import org.xml.sax.SAXException;
 public class ReportBean {
     
     final Logger logger = LoggerFactory.getLogger(ReportBean.class);   
+    String result;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
     
     //Spring User Service is injected...
     @ManagedProperty(value="#{SerieService}")
@@ -84,6 +96,8 @@ public class ReportBean {
         
         Connection conn = DriverManager.getConnection(url, username, password);
         
+        Date date = new Date();
+        
         /*HashMap<String, ArrayList<Serie>> series = getSeries();        
                         
         JRTableModelDataSource jrttds = new JRTableModelDataSource(new CustomDataSource(series));*/
@@ -101,7 +115,7 @@ public class ReportBean {
         
         Map <String, Object> parameters = new HashMap<>();
         parameters.put("ReportTitle", "User Report");
-        parameters.put("DataFile", "/reports/report.jrxml"); 
+        parameters.put("DataFile", "/WEB-INF/reports/report.jrxml"); 
         
         FacesContext facesContext = FacesContext.getCurrentInstance();
         InputStream reportStream = facesContext.getExternalContext().getResourceAsStream("/WEB-INF/reports/report.jrxml");        
@@ -110,7 +124,9 @@ public class ReportBean {
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);        
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
         //JasperViewer.viewReport(jasperPrint, false);
-        JasperExportManager.exportReportToPdfFile(jasperPrint, "/reports/report.pdf");
+        Path path = Paths.get(facesContext.getExternalContext().getRealPath("/WEB-INF/reports/report.jrxml"));
+        String pathStr = path.getParent().toString();
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathStr+"/report.pdf");        
         
         /*JasperDesign jasperDesign = JRXmlLoader.load("reports/report.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);        
@@ -152,6 +168,8 @@ public class ReportBean {
         // conn = DriverManager.getConnection(url, user, passwd);
         // Statement stmt = (Statement) conn.createStatement();
         logger.info("Report created.");
+        
+        this.setResult("Report created");
     }
     
     

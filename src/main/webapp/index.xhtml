@@ -109,7 +109,7 @@
                                 </h:form>
                             </p:tab>
                             <!-- -->
-                            <!-- WORKLOAD TAB -->
+                            <!-- SERVICES TAB -->
                             <p:tab title="SERVICES" id="Services" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
                                 <h:form rendered="#{userBean.loggedin}">
                                     <h:panelGrid cellpadding="10">    
@@ -143,18 +143,30 @@
                                 </h:form>
                             </p:tab>  
                             <!-- -->
-                            <!-- NODES TAB -->
+                            <!-- REPORTS TAB -->
                             <p:tab title="REPORTS" id="Reports" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
-                                <h:form rendered="#{userBean.loggedin}">
+                                <h:form id="ReportsForm" rendered="#{userBean.loggedin}">
                                     <h:panelGrid cellpadding="10">  
                                         <h:outputText value="Nodes"/>  
                                     </h:panelGrid>   
                                     <!-- Jasper report -->
-                                    <p:commandLink id="reportLink" actionListener="#{reportBean.createReport}">  
+                                    <p:commandLink id="reportLink" actionListener="#{reportBean.createReport}" 
+                                                   update="reportCreated">  
                                         <h:outputText value="Create Report" />  
                                     </p:commandLink>  
+                                    <br />
+                                    <br />
+                                    <h:outputText id="reportCreated" value="#{reportBean.result}" />
                                     <!-- -->
                                 </h:form>
+                                <!--p:ajaxStatus style="width:64px; height:64px; position:fixed; right:5px; bottom:5px">
+                                    <f:facet name="start">
+                                        <p:graphicImage library="images" name="loading.gif" />
+                                    </f:facet>
+                                    <f:facet name="complete">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:ajaxStatus-->
                             </p:tab>  
                             <!-- GRAPHS TAB -->
                             <p:tab title="GRAPHS" id="Graphs" disabled="#{not userBean.loggedin}" titleStyleClass="tabsTitle">  
@@ -175,7 +187,7 @@
                             </p:tab>
                             <!-- -->
                         </p:tabView>                          
-                    </h:form>
+                    </h:form>                    
                 </p:layoutUnit>
                 <!-- -->
                 <!-- Southern Layout -->
