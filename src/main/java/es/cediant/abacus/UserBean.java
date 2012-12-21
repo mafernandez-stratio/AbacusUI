@@ -6,15 +6,22 @@ package es.cediant.abacus;
 
 import es.cediant.database.User;
 import es.cediant.service.IUserService;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,14 +41,15 @@ public final class UserBean implements Serializable {
     private boolean loggedin = false;
     private String username;
     private String password;
-    private String pic;
+    //private String pic;
+    private StreamedContent pic;
     final Logger logger = LoggerFactory.getLogger(UserBean.class);
     
     //Spring User Service is injected...
     @ManagedProperty(value="#{UserService}")
     IUserService userService;
     
-    public UserBean() {      
+    public UserBean() {            
         this.setPic("defaultPic.png");
         this.setLoggedin(false);
         logger.info("loggedin="+this.loggedin);
@@ -87,14 +95,27 @@ public final class UserBean implements Serializable {
         this.password = password;
     }
     
-    public String getPic() {
+    public StreamedContent getPic() {
         return pic;
     }
 
     public void setPic(String pic) {
         logger.info("New Pic");   
-        // UPDATE `webdb.user`.`user` SET `photo`=? WHERE `id`=`1`; 
-        this.pic = pic;
+        try {            
+            // UPDATE `webdb.user`.`user` SET `photo`=? WHERE `id`=`1`; 
+            ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+            logger.info(extContext.getContextName());
+            InputStream stream = extContext.getResourceAsStream("resources/images/"+pic);  
+            logger.info(Integer.toString(stream.available()));
+            byte[] photo = IOUtils.toByteArray(stream);
+            logger.info(Integer.toString(photo.length));
+            this.pic = new DefaultStreamedContent(stream, "image/png");
+            logger.info(Integer.toString(pic.length()));
+            //this.pic = new DefaultStreamedContent(new ByteArrayInputStream(photo), "image/png");
+        } catch (Throwable ex) {
+            logger.error("Profile picture could not be updated.");
+            logger.error(ex.getMessage());
+        }
     }        
     
     private User getUserByUsername(String username) {
@@ -107,6 +128,7 @@ public final class UserBean implements Serializable {
             User user = getUserByUsername(username);
             if(user != null && user.getPassword().equals(password)){
                 this.setLoggedin(true);  
+                this.setPic("admin.png");
                 logger.info("Loggedin");
             } else {                      
                 this.setLoggedin(false);  
@@ -123,6 +145,7 @@ public final class UserBean implements Serializable {
     public void logout() {
         try {
             this.setLoggedin(false);
+            this.setPic("defaultPic.png");
             logger.info("Loggedout");
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
             FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");

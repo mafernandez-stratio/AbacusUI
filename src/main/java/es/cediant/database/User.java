@@ -1,6 +1,5 @@
 package es.cediant.database;
-// Generated Dec 11, 2012 5:35:11 PM by Hibernate Tools 3.2.1.GA
-
+// Generated Dec 21, 2012 2:15:27 PM by Hibernate Tools 3.2.1.GA
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,19 +13,26 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name="user", catalog="webdb", uniqueConstraints = @UniqueConstraint(columnNames="username"))
 public class User  implements java.io.Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     private Integer id;
     private String username;
     private String password;
+    private byte[] photo;
 
     public User() {
     }
-
+	
     public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    
+    public User(String username, String password, byte[] photo) {
        this.username = username;
        this.password = password;
+       this.photo = photo;
     }
    
     @Id //@GeneratedValue(strategy=IDENTITY)    
@@ -55,6 +61,13 @@ public class User  implements java.io.Serializable {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+    public byte[] getPhoto() {
+        return this.photo;
+    }
+    
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
 }

@@ -29,7 +29,8 @@
                 <p:layoutUnit id="northernLayout" position="north" size="100" gutter="0" collapsible="true">
                     <div align="right">
                         <h:panelGrid columns="2" id="userPanel">
-                            <h:graphicImage library="images" name="#{userBean.pic}" height="60px;" />
+                            <!--h:graphicImage library="images" name="#{userBean.pic}" height="60px;" /-->
+                            <p:graphicImage value="#{userBean.pic}" height="60px;" />
                             <h:panelGrid id="LeftPanelLogin" >
                                 <c:choose>
                                     <!-- Loggedin -->

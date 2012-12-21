@@ -40,6 +40,7 @@
         <jasper.version>3.5.3</jasper.version>
         <jasper.maven.version>1.0-beta-2</jasper.maven.version>
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+        <commons.io.version>2.4</commons.io.version>
     </properties>
 
     <dependencies>        
@@ -269,6 +270,12 @@
             <artifactId>jasperreports</artifactId>
             <version>${jasper.version}</version>
         </dependency>          
+        <!-- I/O Utils -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>            
     </dependencies>
 
     <build>
