@@ -4,7 +4,6 @@
  */
 package es.cediant.database;
 
-import es.cediant.abacus.UserBean;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -21,9 +20,7 @@ import org.slf4j.LoggerFactory;
 public class ConnectHibernate {
 
     private static SessionFactory sessionFactory;
-    private static ServiceRegistry serviceRegistry;
-    
-    private static Logger logger = LoggerFactory.getLogger(ConnectHibernate.class);
+    private static ServiceRegistry serviceRegistry;   
     
     static {
         try {
@@ -35,8 +32,8 @@ public class ConnectHibernate {
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {
             // Log the exception. 
-            // System.err.println("Initial SessionFactory creation failed." + ex);
-            // throw new ExceptionInInitializerError(ex);
+            Logger logger = LoggerFactory.getLogger(ConnectHibernate.class);
+            logger.error("Initial SessionFactory creation failed.");            
             logger.error(ex.getMessage());
         }
     }

@@ -8,6 +8,7 @@ import es.cediant.database.User;
 import es.cediant.service.IUserService;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -43,7 +44,7 @@ public final class UserBean implements Serializable {
     public UserBean() {      
         this.setPic("defaultPic.png");
         this.setLoggedin(false);
-        logger.info("loggedin= {}", this.loggedin);
+        logger.info("loggedin="+this.loggedin);
     }
     
     /**
@@ -92,6 +93,7 @@ public final class UserBean implements Serializable {
 
     public void setPic(String pic) {
         logger.info("New Pic");   
+        // UPDATE `webdb.user`.`user` SET `photo`=? WHERE `id`=`1`; 
         this.pic = pic;
     }        
     
@@ -114,15 +116,20 @@ public final class UserBean implements Serializable {
                         FacesMessage.SEVERITY_ERROR,"The username or password you have entered is incorrect.", "Try again!"));  
             }  
         }
-        logger.info("Username: {}", username);
-        logger.info("Password: {}", password);          
+        logger.info("Username: " + username);
+        logger.info("Password: " + password);          
     }
     
-    public void logout() throws IOException{
-        this.setLoggedin(false);
-        logger.info("Loggedout");
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();    
-        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+    public void logout() {
+        try {
+            this.setLoggedin(false);
+            logger.info("Loggedout");
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (IOException ex) {
+            logger.error("Error while redirecting to index.xhtml");
+            logger.error(ex.getMessage());
+        }
     }
     
 }

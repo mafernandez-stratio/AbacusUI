@@ -15,14 +15,11 @@ import org.slf4j.LoggerFactory;
  * @author miguel
  */
 public class UserHelper {
-    Session session = null;
-    private Logger logger;
-
-    public UserHelper() {
-        this.logger = LoggerFactory.getLogger(UserHelper.class);
-        //this.session = ConnectHibernate.getSessionFactory().getCurrentSession();
-    }
     
+    Session session;
+    
+    private Logger logger = LoggerFactory.getLogger(UserHelper.class);
+
     public User getUserByUsername (String username){
         User user = new User();
         try {
@@ -30,9 +27,9 @@ public class UserHelper {
             Query q = session.createQuery("from Users as users where users.id.username LIKE '"+username+"'");
             user = (User) q.list().get(0);
             logger.info("User '"+user.getUsername()+"' recovered");
-        } catch (Exception e){
+        } catch (Exception ex){
             logger.error("Database error");
-            logger.error(e.getMessage());
+            logger.error(ex.getMessage());
         }
         return user;        
     }
@@ -44,9 +41,9 @@ public class UserHelper {
             Query q = session.createQuery("from Users as users where users.id.username LIKE "+id);
             user = (User) q.list().get(0);
             logger.info("User '"+user.getId()+"' recovered");
-        } catch (Exception e){
+        } catch (Exception ex){
             logger.error("Database error");
-            logger.error(e.getMessage());
+            logger.error(ex.getMessage());
         }
         return user;        
     }

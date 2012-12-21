@@ -1,7 +1,6 @@
 package es.cediant.database;
 // Generated Dec 11, 2012 5:35:11 PM by Hibernate Tools 3.2.1.GA
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

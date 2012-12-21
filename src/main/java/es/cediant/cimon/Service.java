@@ -5,6 +5,8 @@
 package es.cediant.cimon;
 
 import java.io.Serializable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -14,8 +16,9 @@ public class Service implements Serializable {
     
     private static final long serialVersionUID = 1L;    
     
-    private String name;
+    private Logger logger = LoggerFactory.getLogger(Service.class);
     
+    private String name;    
     
     public Service(String name) {
         this.name = name;

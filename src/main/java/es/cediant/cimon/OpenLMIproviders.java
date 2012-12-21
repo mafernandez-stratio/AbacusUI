@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -16,6 +18,8 @@ import java.util.List;
 public class OpenLMIproviders implements Serializable {
     
     private static final long serialVersionUID = 1L;
+    
+    private Logger logger = LoggerFactory.getLogger(OpenLMIproviders.class);
     
     private List<Service> services;
 
@@ -31,7 +35,7 @@ public class OpenLMIproviders implements Serializable {
         this.services = services;
     }
     
-    public void fetchServices() throws Throwable {
+    public void fetchServices() {
         services.clear();
         services.add(new Service("take"));
         for (int i=0; i<40; i++){

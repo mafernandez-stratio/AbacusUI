@@ -44,6 +44,7 @@ public class ServicesBean {
             fetchServices();
             return services;
         } catch (Throwable ex) {
+            logger.error("Error while fetching services.");
             logger.error(ex.getMessage());
             return null;
         }
@@ -53,7 +54,7 @@ public class ServicesBean {
         this.services = services;
     }
     
-    public void fetchServices() throws Throwable {
+    public void fetchServices() {
         providers.fetchServices();
         providers.sortServices();
         this.services = providers.getServices();

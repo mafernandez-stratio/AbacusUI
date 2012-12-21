@@ -39,7 +39,8 @@
                                             <h:outputText value="user" styleClass="username" />
                                             <h:outputText value="|" styleClass="loggedin" />
                                             <p:commandLink id="LogoutLink" update="userPanel, :tabForm" actionListener="#{userBean.logout}"
-                                                           styleClass="loggingout">                                            
+                                                           styleClass="loggingout" onclick="document.body.style.cursor='wait'"
+                                                           oncomplete="document.body.style.cursor='default'">                                            
                                                 <h:outputText value="Logout" />
                                             </p:commandLink>    
                                         </h:panelGrid>
@@ -151,7 +152,8 @@
                                     </h:panelGrid>   
                                     <!-- Jasper report -->
                                     <p:commandLink id="reportLink" actionListener="#{reportBean.createReport}" 
-                                                   update="reportCreated">  
+                                                   update="reportCreated" onclick="document.body.style.cursor='wait'"
+                                                   oncomplete="document.body.style.cursor='default'">  
                                         <h:outputText value="Create Report" />  
                                     </p:commandLink>  
                                     <br />

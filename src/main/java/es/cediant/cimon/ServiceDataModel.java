@@ -4,10 +4,11 @@
  */
 package es.cediant.cimon;
 
-import es.cediant.cimon.Service; 
 import java.util.List;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel; 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -15,9 +16,8 @@ import org.primefaces.model.SelectableDataModel;
  */
 public class ServiceDataModel extends ListDataModel<Service> implements SelectableDataModel<Service> {
 
-    public ServiceDataModel() {        
-    }
-    
+    private Logger logger = LoggerFactory.getLogger(ServiceDataModel.class);
+
     public ServiceDataModel(List<Service> data){
         super(data);
     }

@@ -2,14 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.cediant.abacus;
+package es.cediant.utils;
 
+import es.cediant.abacus.ChartBean;
 import es.cediant.database.Serie;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,6 +21,8 @@ import javax.swing.table.TableModel;
 class CustomDataSource implements TableModel {
 
     private HashMap<String, ArrayList<Serie>> series;
+    
+    final Logger logger = LoggerFactory.getLogger(ChartBean.class);
     
     public CustomDataSource(HashMap<String, ArrayList<Serie>> series) {
         this.series = series;
@@ -35,12 +40,14 @@ class CustomDataSource implements TableModel {
 
     @Override
     public String getColumnName(int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        logger.error("getColumnName: Not supported yet.");
+        return null;
     }
 
     @Override
     public Class<?> getColumnClass(int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        logger.error("getColumnClass: Not supported yet.");
+        return null;
     }
 
     @Override

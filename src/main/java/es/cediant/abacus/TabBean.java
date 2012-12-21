@@ -29,7 +29,7 @@ public class TabBean {
         return effect;
     }
 
-    public void setEffect(String effect) {
+    private void setEffect(String effect) {
         this.effect = effect;
     }
     

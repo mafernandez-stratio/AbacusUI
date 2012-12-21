@@ -4,11 +4,12 @@
  */
 package es.cediant.database;
 
-import es.cediant.abacus.DocXML;
+import es.cediant.utils.DocXML;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import javax.xml.parsers.ParserConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,11 @@ public class DatabaseConnection {
             String user = applicationContext.getPropertyValue("DataSource", "user");
             String password = applicationContext.getPropertyValue("DataSource", "password");
             connection = DriverManager.getConnection(jdbcUrl, user, password);
-        } catch (ParserConfigurationException | SAXException | SQLException | IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
+            logger.error("Problem with applicationContext.xml");
+            logger.error(ex.getMessage());        
+        } catch (SQLException ex) {
+            logger.error("Database connection failed.");
             logger.error(ex.getMessage());
         }
     }
