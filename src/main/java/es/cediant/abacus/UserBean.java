@@ -41,8 +41,8 @@ public final class UserBean implements Serializable {
     private boolean loggedin = false;
     private String username;
     private String password;
-    //private String pic;
-    private StreamedContent pic;
+    private String pic;    
+    private StreamedContent picDB;
     final Logger logger = LoggerFactory.getLogger(UserBean.class);
     
     //Spring User Service is injected...
@@ -95,17 +95,18 @@ public final class UserBean implements Serializable {
         this.password = password;
     }
     
-    public StreamedContent getPic() {
+    public String getPic() {
         return pic;
     }
 
     public void setPic(String pic) {
-        logger.info("New Pic");   
-        try {            
+        logger.info("New Pic");  
+        this.pic = pic;
+        /*try {            
             // UPDATE `webdb.user`.`user` SET `photo`=? WHERE `id`=`1`; 
             ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
-            logger.info(extContext.getContextName());
-            InputStream stream = extContext.getResourceAsStream("resources/images/"+pic);  
+            logger.info(extContext.getContextName()); //
+            InputStream stream = extContext.getResourceAsStream("/resources/images/"+pic);  // ERROR
             logger.info(Integer.toString(stream.available()));
             byte[] photo = IOUtils.toByteArray(stream);
             logger.info(Integer.toString(photo.length));
@@ -115,8 +116,20 @@ public final class UserBean implements Serializable {
         } catch (Throwable ex) {
             logger.error("Profile picture could not be updated.");
             logger.error(ex.getMessage());
-        }
+        }*/
     }        
+    
+    public StreamedContent getPicDB() {
+        return this.picDB;
+    }
+
+    public void setPicDB(String username) {
+        this.picDB = getUserService().getPicDB(username);
+    }
+    
+    public void setPicDB(StreamedContent photo) {
+        this.picDB = photo;
+    }
     
     private User getUserByUsername(String username) {
         return getUserService().getUserByUsername(username);
@@ -129,13 +142,17 @@ public final class UserBean implements Serializable {
             if(user != null && user.getPassword().equals(password)){
                 this.setLoggedin(true);  
                 this.setPic("admin.png");
+                //this.setPicDB(username);
+                this.setPicDB(new DefaultStreamedContent (new ByteArrayInputStream(user.getPhoto())));                
                 logger.info("Loggedin");
             } else {                      
                 this.setLoggedin(false);  
                 logger.info("Incorrect login");
                 //context.addCallbackParam("errorLogin", "The username or password you have entered is incorrect.");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
-                        FacesMessage.SEVERITY_ERROR,"The username or password you have entered is incorrect.", "Try again!"));  
+                        FacesMessage.SEVERITY_ERROR,
+                        "The username or password you have entered is incorrect.", 
+                        "Try again!"));  
             }  
         }
         logger.info("Username: " + username);
