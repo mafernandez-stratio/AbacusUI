@@ -1,8 +1,11 @@
 package es.cediant.database;
-// Generated Dec 21, 2012 2:15:27 PM by Hibernate Tools 3.2.1.GA
+// Generated Dec 26, 2012 11:28:55 AM by Hibernate Tools 3.2.1.GA
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,8 +16,6 @@ import javax.persistence.Table;
 @Table(name="serie", catalog="webdb")
 public class Serie  implements java.io.Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private Integer idserie;
     private String name;
     private int time;
@@ -23,12 +24,13 @@ public class Serie  implements java.io.Serializable {
 
     public Serie() {
     }
-
+	
     public Serie(String name, int time, int data) {
         this.name = name;
         this.time = time;
         this.data = data;
     }
+    
     public Serie(String name, int time, int data, String comment) {
        this.name = name;
        this.time = time;
@@ -36,7 +38,7 @@ public class Serie  implements java.io.Serializable {
        this.comment = comment;
     }
    
-    @Id //@GeneratedValue(strategy=IDENTITY)    
+    @Id @GeneratedValue(strategy=IDENTITY)    
     @Column(name="idserie", unique=true, nullable=false)
     public Integer getIdserie() {
         return this.idserie;

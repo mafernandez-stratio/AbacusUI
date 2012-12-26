@@ -1,8 +1,11 @@
 package es.cediant.database;
-// Generated Dec 21, 2012 2:15:27 PM by Hibernate Tools 3.2.1.GA
+// Generated Dec 26, 2012 11:28:55 AM by Hibernate Tools 3.2.1.GA
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -14,12 +17,10 @@ import javax.persistence.UniqueConstraint;
 @Table(name="user", catalog="webdb", uniqueConstraints = @UniqueConstraint(columnNames="username"))
 public class User  implements java.io.Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private Integer id;
     private String username;
     private String password;
-    private byte[] photo;
+    private String photo;
 
     public User() {
     }
@@ -29,13 +30,13 @@ public class User  implements java.io.Serializable {
         this.password = password;
     }
     
-    public User(String username, String password, byte[] photo) {
+    public User(String username, String password, String photo) {
        this.username = username;
        this.password = password;
        this.photo = photo;
     }
    
-    @Id //@GeneratedValue(strategy=IDENTITY)    
+    @Id @GeneratedValue(strategy=IDENTITY)
     @Column(name="id", unique=true, nullable=false)
     public Integer getId() {
         return this.id;
@@ -62,11 +63,13 @@ public class User  implements java.io.Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public byte[] getPhoto() {
+    
+    @Column(name="photo", length=45)
+    public String getPhoto() {
         return this.photo;
     }
     
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

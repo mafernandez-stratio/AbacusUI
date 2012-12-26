@@ -5,7 +5,6 @@
 package es.cediant.service;
 
 import es.cediant.database.User;
-import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -19,5 +18,4 @@ public interface IUserService {
      */
     public User getUserByUsername(String username);
 
-    public StreamedContent getPicDB(String username);
 }

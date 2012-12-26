@@ -6,7 +6,6 @@ package es.cediant.service;
 
 import es.cediant.dao.IUserDAO;
 import es.cediant.database.User;
-import org.primefaces.model.StreamedContent;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -40,10 +39,5 @@ public class UserService implements IUserService {
      */
     public void setUserDAO(IUserDAO userDAO) {
         this.userDAO = userDAO;
-    }
-
-    @Override
-    public StreamedContent getPicDB(String username) {
-        return getUserDAO().getPicDB(username);
     }
 }

@@ -28,10 +28,10 @@
                 <!-- Northern Layout -->
                 <p:layoutUnit id="northernLayout" position="north" size="100" gutter="0" collapsible="true">
                     <div align="right">
-                        <h:panelGrid columns="2" id="userPanel">
-                            <!--h:graphicImage library="images" name="{userBean.pic}" height="60px;" -->
+                        <h:panelGrid columns="3" id="userPanel">
+                            <h:graphicImage library="images" name="#{userBean.pic}" height="60px;" />
                             <!--h:graphicImage height="60px;" value="{userBean.pic}" /-->
-                            <p:graphicImage value="{userBean.pic}" height="60px;" />
+                            <!--p:graphicImage value="{userBean.pic}" height="60px;" /-->
                             <h:panelGrid id="LeftPanelLogin" >
                                 <c:choose>
                                     <!-- Loggedin -->
@@ -187,6 +187,16 @@
                                                  widgetVar="Linearchart">
                                         <p:ajax event="itemSelect" listener="#{chartBean.itemSelect}" />
                                     </p:lineChart>
+                                    <!--p:commandButton type="button" value="Export" icon="ui-icon-extlink" onclick="exportChart()"/>  
+                                    <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Chart as an Image">  
+                                        <p:outputPanel id="output" layout="block" style="width:500px;height:300px"/>  
+                                    </p:dialog> 
+                                    function exportChart() {  
+                                        //export image  
+                                        $('#output').empty().append(chart.exportAsImage());  
+                                        //show the dialog  
+                                        dlg.show();  
+                                    }-->  
                                 </h:form>
                             </p:tab>
                             <!-- -->

@@ -5,13 +5,9 @@
 package es.cediant.dao;
 
 import es.cediant.database.User;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -45,12 +41,4 @@ public class UserDAO implements IUserDAO {
         return (User) q.list().get(0);
     }
 
-    @Override
-    public StreamedContent getPicDB(String username) {
-        Session session = getSessionFactory().getCurrentSession();
-        Query q = session.createQuery("from User as user where user.username LIKE '"+username+"'");
-        User user = (User) q.list().get(0);
-        byte[] bytes = user.getPhoto();
-        return new DefaultStreamedContent (new ByteArrayInputStream(bytes));
-    }
 }
