@@ -44,7 +44,7 @@ public class ServicesBean {
             fetchServices();
             return services;
         } catch (Throwable ex) {
-            logger.error("Error while fetching services.");
+            logger.error("Error while getting services.");
             logger.error(ex.getMessage());
             return null;
         }
@@ -55,10 +55,15 @@ public class ServicesBean {
     }
     
     public void fetchServices() {
-        providers.fetchServices();
-        providers.sortServices();
-        this.services = providers.getServices();
-        this.servicesName = new ServiceDataModel(this.services);
+        try {
+            providers.fetchServices();
+            providers.sortServices();
+            this.services = providers.getServices();
+            this.servicesName = new ServiceDataModel(this.services);
+        } catch (Exception ex) {
+            logger.error("Error while fetching services.");
+            logger.error(ex.getMessage());
+        }
     }
     
     public Service getSelectedService(){
